@@ -1,9 +1,12 @@
 # JogosON
 
-<p style="text-align: center;">Universidade Federal de Campina Grande - UFCG</p>
-<p style="text-align: center;">Paradigmas de Linguagens de Programação - 2020.1e</p>
+<h2>Universidade Federal de Campina Grande - UFCG</h2>
+<h3>Paradigmas de Linguagens de Programação - 2020.1e</h3>
 
-Projeto para disciplina de PLP
+<br>
+
+## Projeto para disciplina de PLP<br>
+[Link para o documento com os detalhes](https://docs.google.com/document/d/1BV6YwQG_IYqMas9ISeIPvewRRr6W14KCdXZC5CmSWKc/edit?usp=sharing)
 
 ## Equipe:
 
