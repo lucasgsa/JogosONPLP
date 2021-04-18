@@ -12,6 +12,11 @@ module Jogo where
     nomeJogos [] = []
     nomeJogos (h:hs) = (nome h):(nomeJogos hs)
 
+    reqMinimosPorNome :: String -> [Jogo] -> String
+    reqMinimosPorNome _ [] = ""
+    reqMinimosPorNome nomeJogo (h:hs) | (nome h) == nomeJogo = (reqMinimos h)
+                                      | otherwise = (reqMinimosPorNome nomeJogo hs)
+
     -- Dado o nome de uma categoria e uma lista de jogos, retorna uma lista com os jogos dessa categoria.
     jogosCategoria :: String -> [Jogo] -> [Jogo]
     jogosCategoria categoriaProcurada [] = []
