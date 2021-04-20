@@ -1,4 +1,5 @@
 module Jogo where
+import Util as Util
 
 data Jogo = Jogo {
   nome :: String,
@@ -7,8 +8,15 @@ data Jogo = Jogo {
   plataforma :: String,
   preco :: Double,
   online :: Bool
-} deriving (Show,Eq,Ord)
+} deriving (Eq,Ord)
 
+instance Show Jogo where
+  show (Jogo nome categorias reqMinimos plataforma preco online) = "Título: " ++ nome ++ "\n"
+                                                                   ++ " Plataforma: " ++ plataforma ++ "\n"
+                                                                   ++ " " ++ (if online then "Cooperativo online" else "Um jogador") ++ "\n"
+                                                                   ++ " Requisitos Mínimos: " ++ (Util.listToString reqMinimos) ++ "\n"
+                                                                   ++ " Gêneros: " ++ (Util.listToString categorias) ++ "\n"
+                                                                   ++ " Preço: " ++ (if (preco /= 0) then ("R$" ++ show preco) else "Grátis")
 convertArrayToString :: [String] -> String
 convertArrayToString (h: []) = h
 convertArrayToString (h:t) = h ++ "," ++ convertArrayToString (t)
