@@ -5,16 +5,16 @@ module Listagem where
     -- 3. Deve ser possível listar todos os jogos disponíveis
     listarJogos :: [Jogo.Jogo] -> String
     listarJogos [] = "Nenhum jogo encontrado."
-    listarJogos x = (Util.color "blue") ++ "Todos os jogos: " ++ "\n" ++ listarJogosAux x
+    listarJogos x = (Util.color "blue" True) ++ "Todos os jogos: " ++ "\n" ++ listarJogosAux x
 
     listarJogosAux :: [Jogo.Jogo] -> String 
     listarJogosAux [] = ""
     listarJogosAux (x:[]) = show x
-    listarJogosAux (x:xs) = (show x) ++ "\n\n" ++ listarJogosAux xs
+    listarJogosAux (x:xs) = (show x) ++ "\n\n" ++ listarJogosAux xs ++ (Util.color "nocolor" False)
 
     -- 5. Deve ser possível listar os jogos por categoria;
     listarJogosCategoria :: String -> [Jogo.Jogo] -> String
-    listarJogosCategoria categoria listaJogos = (Util.color "blue") ++ "Jogos da categoria "++categoria++": "++ "\n"
+    listarJogosCategoria categoria listaJogos = (Util.color "blue" True) ++ "Jogos da categoria "++categoria++": "++ "\n"
                                                 ++listarJogosAux (filterCategoria categoria listaJogos)
 
     filterCategoria :: String -> [Jogo.Jogo] -> [Jogo.Jogo]
