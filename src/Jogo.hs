@@ -28,6 +28,6 @@ getArrayToString array = "[" ++ convertArrayToString(array) ++ "]"
 
 salvarJogo :: Jogo.Jogo -> IO()
 salvarJogo jogo = do
-  let jogoStr = Jogo.nome jogo ++ "," ++ getArrayToString (Jogo.categorias jogo) ++ "," ++ getArrayToString (Jogo.reqMinimos jogo) ++ "," ++ Jogo.plataforma jogo ++ "," ++ show (Jogo.preco jogo) ++ "," ++ show (Jogo.online jogo) ++ "," ++ show (Jogo.anoLancamento jogo)
-  appendFile "dados/jogos.csv" (jogoStr ++ "\n")
+  let jogoStr = Jogo.nome jogo ++ "|" ++ getArrayToString (Jogo.categorias jogo) ++ "|" ++ getArrayToString (Jogo.reqMinimos jogo) ++ "|" ++ Jogo.plataforma jogo ++ "|" ++ show (Jogo.preco jogo) ++ "|" ++ show (Jogo.online jogo) ++ "|" ++ show (Jogo.anoLancamento jogo)
+  appendFile "dados/jogos.txt" (jogoStr ++ "\n")
   return ()
