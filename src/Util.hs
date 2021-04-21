@@ -1,9 +1,5 @@
 module Util where
-
-    listToString :: [String] -> String
-    listToString [] = ""
-    listToString (x:[]) = x 
-    listToString (x:xs) =  x ++ ", " ++ listToString xs
+    import Data.List.Split (splitOn)
 
     color :: String -> Bool -> String -> String
     color "nocolor" _ _   = "\ESC[0m"
@@ -18,3 +14,11 @@ module Util where
 
     bold = "\ESC[1m"
     nobold = "\ESC[0m"
+
+    -- Dado uma string ex: "[1,2,3]" a função retira os colchetes, e aplica um split, ou seja, retornaria [1,2,3].
+    parseStringList :: String -> [String]
+    parseStringList linha = splitOn "," (retiraBracketsStringList linha)
+
+    -- Retira o primeiro e último caractere de uma String, ou seja, para o caso de "[1,2,3]", retorna "1,2,3".
+    retiraBracketsStringList :: String -> String
+    retiraBracketsStringList linha = reverse(drop 1(reverse (drop 1 linha)))
