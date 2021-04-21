@@ -7,7 +7,8 @@ data Jogo = Jogo {
   reqMinimos :: [String],
   plataforma :: String,
   preco :: Double,
-  online :: Bool
+  online :: Bool,
+  anoLancamento :: Integer
 } deriving (Eq,Ord)
 
 instance Show Jogo where
@@ -15,6 +16,7 @@ instance Show Jogo where
                                                                    ++ (Util.color "white" False ("   Plataforma: " ++ plataforma)) ++ "\n"
                                                                    ++ (Util.color "white" False ("   Requisitos Mínimos: " ++ (Util.listToString reqMinimos))) ++ "\n"
                                                                    ++ (Util.color "white" False ("   Gêneros: " ++ (Util.listToString categorias))) ++ "\n"
+                                                                   ++ (Util.color "white" False ("   Ano lançamento: " ++ show anoLancamento)) ++ "\n"
                                                                    ++ (Util.color "yellow" False ("   " ++ (if online then "Cooperativo online" else "Um jogador"))) ++ "\n"
                                                                    ++ (Util.color "red" True ("   Preço: " ++ (if (preco /= 0) then ("R$" ++ show preco) else "Grátis")))
 convertArrayToString :: [String] -> String
@@ -26,6 +28,6 @@ getArrayToString array = "[" ++ convertArrayToString(array) ++ "]"
 
 salvarJogo :: Jogo.Jogo -> IO()
 salvarJogo jogo = do
-  let jogoStr = Jogo.nome jogo ++ "," ++ getArrayToString (Jogo.categorias jogo) ++ "," ++ getArrayToString (Jogo.reqMinimos jogo) ++ "," ++ Jogo.plataforma jogo ++ "," ++ show (Jogo.preco jogo) ++ "," ++ show (Jogo.online jogo)
-  appendFile "dados/jogos.csv" (jogoStr ++ "\n")
+  let jogoStr = Jogo.nome jogo ++ "|" ++ getArrayToString (Jogo.categorias jogo) ++ "|" ++ getArrayToString (Jogo.reqMinimos jogo) ++ "|" ++ Jogo.plataforma jogo ++ "|" ++ show (Jogo.preco jogo) ++ "|" ++ show (Jogo.online jogo) ++ "|" ++ show (Jogo.anoLancamento jogo)
+  appendFile "dados/jogos.txt" (jogoStr ++ "\n")
   return ()
