@@ -1,0 +1,5 @@
+League of Legends|[moba]|[Processador de 3GHz,2GB,Placa de v¡deo compativel com Shader versao 2.0b.]|PC|0.0|True|2009
+Dota 2|[moba]|[Dual core da Intel ou AMD com 2.8 GHz,4GB,nVidia GeForce 8600/9600GT ou ATI/AMD Radeon HD2600/3600]|PC|0.0|True|2013
+Counter-Strike: Global Offensive|[fps]|[Intel Core 2 Duo E6600,2GB,256 MB com Pixel Shader 3.0.]|PC|0.0|True|2012
+Fortnite|[battleroyale]|[Core i3-3225 3.3 GHz.,4GB,Intel HD 4000 no PC ou Intel Iris Pro 5200]|PC/CONSOLE/MOBILE|0.0|True|2017
+Terraria|[mundo aberto,aventura]|[Dual core 3.0,4GB,256mb Memoria de v¡deo]|PC/MOBILE|19.99|True|2011
