@@ -12,7 +12,7 @@ data Jogo = Jogo {
 } deriving (Eq,Ord)
 
 instance Show Jogo where
-  show (Jogo nome categorias reqMinimos plataforma preco online) = (Util.color "green" True "  Título: ") ++ (Util.color "cyan" False nome) ++ "\n"
+  show (Jogo nome categorias reqMinimos plataforma preco online anoLancamento) = (Util.color "green" True "  Título: ") ++ (Util.color "cyan" False nome) ++ "\n"
                                                                    ++ (Util.color "white" False ("   Plataforma: " ++ plataforma)) ++ "\n"
                                                                    ++ (Util.color "white" False ("   Requisitos Mínimos: " ++ (Util.listToString reqMinimos))) ++ "\n"
                                                                    ++ (Util.color "white" False ("   Gêneros: " ++ (Util.listToString categorias))) ++ "\n"
