@@ -26,25 +26,37 @@ module Listagem where
     categoriaContem :: String -> Jogo -> Bool
     categoriaContem categoria jogo = categoria `elem` (Jogo.categorias jogo)
 
-    -- 6. Deve ser possível listar os últimos jogos lançados
+    -- 6. Deve ser possível listar os jogos em ordem de lançamento.
 
-    listarJogosLancados :: [Jogo.Jogo ] -> String
-    listarJogosLancados listarJogos = listarJogosAux(take 10 (reverse((mergeSort listarJogos))))
+    listarJogosPorAnoLancamento :: [Jogo.Jogo ] -> String
+    listarJogosPorAnoLancamento listarJogos = listarJogosAux(take 10 (reverse((sortBy listarJogos 2))))
 
-    -- Ordenação(Merge Sort)
+    -- tipo 1 - normal, verificando x <= y
+    -- tipo 2 - por ano de lançamento
+    -- tipo 3 - por nota de avaliação !!!NÃO IMPLEMENTADO!!!
+    -- tipo não correto - retorna a lista do jeito que entrou
+    -- Ordenação(Merge Sort) - Ordenar pelo tipo passado
+    sortBy :: [Jogo.Jogo] -> Integer -> [Jogo]
+    sortBy [] tipo = []
+    sortBy xs tipo
+        | length xs == 1 = xs
+        | tipo == 1 = merge (sortBy (primeiraParte xs) tipo) (sortBy (segundaParte xs) tipo)
+        | tipo == 2 = mergeByAnoLancamento (sortBy (primeiraParte xs) tipo) (sortBy (segundaParte xs) tipo)
+        | otherwise = xs
 
     merge :: [Jogo.Jogo] -> [Jogo] -> [Jogo]
     merge xs [] = xs
     merge [] ys = ys
-    merge (x:xs) (y:ys) 
-        |  Jogo.anoLancamento x <= Jogo.anoLancamento y = x:merge xs (y:ys)
+    merge (x:xs) (y:ys)
+        | (Jogo.anoLancamento x <= Jogo.anoLancamento y) = x:merge xs (y:ys)
         | otherwise = y:merge (x:xs) ys
 
-    mergeSort :: [Jogo.Jogo] -> [Jogo]
-    mergeSort [] = []
-    mergeSort xs 
-        | length xs == 1 = xs
-        | otherwise =  merge (mergeSort (primeiraParte xs)) (mergeSort (segundaParte xs))
+    mergeByAnoLancamento :: [Jogo.Jogo] -> [Jogo] -> [Jogo]
+    mergeByAnoLancamento xs [] = xs
+    mergeByAnoLancamento [] ys = ys
+    mergeByAnoLancamento (x:xs) (y:ys)
+        | (Jogo.anoLancamento x <= Jogo.anoLancamento y) = x:mergeByAnoLancamento xs (y:ys)
+        | otherwise = y:mergeByAnoLancamento (x:xs) ys
 
     primeiraParte :: [Jogo] -> [Jogo]
     primeiraParte  xs = let { n = length xs } in take (div n 2) xs
