@@ -29,7 +29,8 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 3. Deve ser possível listar todos os jogos disponíveis;
 4. Deve ser possível listar os últimos jogos cadastrados no sistema;
 5. Deve ser possível listar os jogos por categoria;
-6. Deve ser possível listar os jogos com melhores avaliações;
-7. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
-8. Um usuário poderá pedir uma indicação de um jogo(Respondendo perguntas e retornando o jogo que mais se encaixar nas perguntas respondidas)
+6. Deve ser possível listar os jogos por ano de Lançamento;
+7. Deve ser possível listar os jogos com melhores avaliações;
+8. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
+9. Um usuário poderá pedir uma indicação de um jogo(Respondendo perguntas e retornando o jogo que mais se encaixar nas perguntas respondidas)
 
