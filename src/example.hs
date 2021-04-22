@@ -9,3 +9,4 @@ main = do
     let listaJogos = CarregaArquivos.carregarJogos jogos
 
     putStrLn (Listagem.listarJogos listaJogos)
+
