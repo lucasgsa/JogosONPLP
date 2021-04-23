@@ -6,7 +6,15 @@ import CarregaArquivos as CarregaArquivos
 main = do
     jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
 
+    avaliacoes <- CarregaArquivos.lerArquivoAvaliacoes "dados/avaliacoes.txt"
+
     let listaJogos = CarregaArquivos.carregarJogos jogos
 
-    putStrLn (Listagem.listarJogos listaJogos)
+    let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
+
+    putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
+
+    putStrLn (Listagem.listarAvaliacoesJogo "Counter-Strike: Global Offensive" listaJogos listaAvaliacoes)
+
+    -- putStrLn (Listagem.listarJogos listaJogos)
 
