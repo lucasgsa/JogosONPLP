@@ -1,6 +1,7 @@
 module Listagem where
     import Util as Util
     import Jogo as Jogo
+    import Avaliacao as Avaliacao
 
     -- 3. Deve ser possível listar todos os jogos disponíveis
     listarJogos :: [Jogo.Jogo] -> String
@@ -29,20 +30,18 @@ module Listagem where
     -- 6. Deve ser possível listar os jogos em ordem de lançamento.
 
     listarJogosPorAnoLancamento :: [Jogo.Jogo ] -> String
-    listarJogosPorAnoLancamento listarJogos = listarJogosAux(take 10 (reverse((sortBy listarJogos 2))))
+    listarJogosPorAnoLancamento listarJogos = listarJogosAux(take 10 (reverse((mergeSort listarJogos))))
 
     -- tipo 1 - normal, verificando x <= y
     -- tipo 2 - por ano de lançamento
     -- tipo 3 - por nota de avaliação !!!NÃO IMPLEMENTADO!!!
     -- tipo não correto - retorna a lista do jeito que entrou
     -- Ordenação(Merge Sort) - Ordenar pelo tipo passado
-    sortBy :: [Jogo.Jogo] -> Integer -> [Jogo]
-    sortBy [] tipo = []
-    sortBy xs tipo
+    mergeSort :: [Jogo.Jogo] -> [Jogo]
+    mergeSort [] = []
+    mergeSort xs
         | length xs == 1 = xs
-        | tipo == 1 = merge (sortBy (primeiraParte xs) tipo) (sortBy (segundaParte xs) tipo)
-        | tipo == 2 = mergeByAnoLancamento (sortBy (primeiraParte xs) tipo) (sortBy (segundaParte xs) tipo)
-        | otherwise = xs
+        | otherwise = merge (mergeSort (primeiraParte xs)) (mergeSort (segundaParte xs))
 
     merge :: [Jogo.Jogo] -> [Jogo] -> [Jogo]
     merge xs [] = xs
@@ -51,17 +50,47 @@ module Listagem where
         | (Jogo.anoLancamento x <= Jogo.anoLancamento y) = x:merge xs (y:ys)
         | otherwise = y:merge (x:xs) ys
 
-    mergeByAnoLancamento :: [Jogo.Jogo] -> [Jogo] -> [Jogo]
-    mergeByAnoLancamento xs [] = xs
-    mergeByAnoLancamento [] ys = ys
-    mergeByAnoLancamento (x:xs) (y:ys)
-        | (Jogo.anoLancamento x <= Jogo.anoLancamento y) = x:mergeByAnoLancamento xs (y:ys)
-        | otherwise = y:mergeByAnoLancamento (x:xs) ys
-
     primeiraParte :: [Jogo] -> [Jogo]
     primeiraParte  xs = let { n = length xs } in take (div n 2) xs
 
     segundaParte :: [Jogo] -> [Jogo]
     segundaParte xs = let { n = length xs } in drop (div n 2) xs
+
+    -- 9 - Deve ser possível listar as avaliações de um jogo. 
+    listarAvaliacoesJogo :: String -> [Jogo] -> [Avaliacao] -> String
+    listarAvaliacoesJogo _ _ []= "Não há avaliações no sistema."
+    listarAvaliacoesJogo nomeJogo jogos avaliacoes = if (existeJogo nomeJogo jogos)
+                                                    then (Util.color "red" True ("Avaliações do jogo "++nomeJogo ++ ":\n")) 
+                                                        ++ (Util.color "green" False "Nota média do jogo: " ++ (show (getMediaJogo nomeJogo avaliacoes)) ++ "\n")
+                                                        ++ listarAvaliacoesJogoAux nomeJogo avaliacoes
+                                                    else (Util.color "red" True ("O jogo "++ nomeJogo ++ " não está cadastrado."))
+
+    existeJogo :: String -> [Jogo] -> Bool
+    existeJogo _ [] = False
+    existeJogo nomeJogo (x:xs) = if (Jogo.nome x) == nomeJogo
+                                then True
+                                else existeJogo nomeJogo xs
+
+    listarAvaliacoesJogoAux :: String -> [Avaliacao] -> String
+    listarAvaliacoesJogoAux _ [] = ""
+    listarAvaliacoesJogoAux nomeJogo (x:xs) = if nomeJogo == (Avaliacao.jogo x)
+                                            then show x ++ "\n\n" ++ (listarAvaliacoesJogoAux nomeJogo xs)
+                                            else listarAvaliacoesJogoAux nomeJogo xs
+
+    -- Retorna a média de um jogo.
+    getMediaJogo :: String -> [Avaliacao] -> Double
+    getMediaJogo _ [] = 0.0
+    getMediaJogo nomeJogo avaliacoes = do
+                                    let aux = getAvaliacoesJogo nomeJogo avaliacoes
+                                    if ((snd aux) == 0) then 0.0 else ((fst aux)/ (fromIntegral (snd aux)))
+
+    -- Retorna uma tupla, com o primeiro elemento contendo a soma das notas, e o segundo a quantidade de avaliacoes.
+    -- Ou seja, a media é so fazer fst/snd.
+    getAvaliacoesJogo :: String -> [Avaliacao] -> (Double, Integer)
+    getAvaliacoesJogo _ [] = (0.0, 0)
+    getAvaliacoesJogo nomeJogo (x:xs) = do
+                                    let atual = (if (nomeJogo) == (Avaliacao.jogo x) then ((Avaliacao.nota x), 1) else (0,0))
+                                    ((fst atual) + (fst prox), (snd atual) + (snd prox))
+                                    where prox = getAvaliacoesJogo nomeJogo xs
 
 
