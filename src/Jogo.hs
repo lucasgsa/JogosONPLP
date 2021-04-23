@@ -28,6 +28,7 @@ getArrayToString array = "[" ++ convertArrayToString(array) ++ "]"
 
 salvarJogo :: Jogo.Jogo -> IO()
 salvarJogo jogo = do
+  -- TODO: É necessário veriricar se já existe um jogo com esse nome (Case Insensitive)
   let jogoStr = Jogo.nome jogo ++ "|" ++ getArrayToString (Jogo.categorias jogo) ++ "|" ++ getArrayToString (Jogo.reqMinimos jogo) ++ "|" ++ Jogo.plataforma jogo ++ "|" ++ show (Jogo.preco jogo) ++ "|" ++ show (Jogo.online jogo) ++ "|" ++ show (Jogo.anoLancamento jogo)
   appendFile "dados/jogos.txt" (jogoStr ++ "\n")
   return ()
