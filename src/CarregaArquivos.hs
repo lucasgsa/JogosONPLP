@@ -1,7 +1,29 @@
 module CarregaArquivos where
     import Util as Util
     import Jogo as Jogo
+    import Avaliacao as Avaliacao
     import Data.List.Split (splitOn)
+
+    -- Le o arquivo de dados de avaliações, e retorna uma lista de string que cada uma armazena uma avaliação.
+    lerArquivoAvaliacoes :: String -> IO([String])
+    lerArquivoAvaliacoes path = do
+        arquivo <- readFile path
+        let listaAvaliacoes = lines arquivo
+        return listaAvaliacoes
+    
+    -- Retorna uma lista com as avaliações a partir de uma lista de strings contendo as avaliações.
+    carregarAvaliacoes :: [String] -> [Avaliacao]
+    carregarAvaliacoes lista = [decodeAvaliacao x | x <- lista]
+    
+    -- A partir da string gerada da avaliação, retorna a Avaliação.
+    decodeAvaliacao :: String -> Avaliacao
+    decodeAvaliacao line = Avaliacao {
+                                Avaliacao.usuario = paramAvaliacao!!0,
+                                Avaliacao.jogo = paramAvaliacao!!1,
+                                Avaliacao.nota = read (paramAvaliacao!!2) :: Double,
+                                Avaliacao.comentario = paramAvaliacao!!3
+                            }
+                        where paramAvaliacao = splitOn "|" line
 
     -- Le o arquivo de dados de jogos, e retorna uma lista de strings que armazena cada jogo.
     lerArquivoJogos :: String -> IO([String])
@@ -25,4 +47,4 @@ module CarregaArquivos where
                         Jogo.online = if (paramJogo!!5 == "True") then True else False,
                         Jogo.anoLancamento = read (paramJogo!!6) :: Integer
                     }
-                    where paramJogo = splitOn "|" line
+                where paramJogo = splitOn "|" line
