@@ -9,8 +9,8 @@ module Listagem where
 
     listarJogosAux :: [Jogo.Jogo] -> String
     listarJogosAux [] = "Nenhum jogo encontrado."
-    listarJogosAux (x:[]) = show x
-    listarJogosAux (x:xs) = (show x) ++ "\n\n" ++ listarJogosAux xs
+    listarJogosAux [x] = show x
+    listarJogosAux (x:xs) = show x ++ "\n\n" ++ listarJogosAux xs
 
     -- 4. Deve ser possível listar os últimos jogos cadastrados no sistema;
     listarUltimosJogos :: [Jogo.Jogo ] -> String
@@ -73,7 +73,7 @@ module Listagem where
 
     listarAvaliacoesJogoAux :: String -> [Avaliacao] -> String
     listarAvaliacoesJogoAux _ [] = ""
-    listarAvaliacoesJogoAux nomeJogo (x:xs) = if nomeJogo == (Avaliacao.jogo x)
+    listarAvaliacoesJogoAux nomeJogo (x:xs) = if nomeJogo == Avaliacao.jogo x
                                             then show x ++ "\n\n" ++ listarAvaliacoesJogoAux nomeJogo xs
                                             else listarAvaliacoesJogoAux nomeJogo xs
 

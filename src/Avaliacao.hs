@@ -1,4 +1,4 @@
-module Avaliacao where 
+module Avaliacao where
 import Util as Util
 
 data Avaliacao = Avaliacao {
@@ -9,8 +9,8 @@ data Avaliacao = Avaliacao {
 } deriving (Eq,Ord)
 
 instance Show Avaliacao where
-  show (Avaliacao usuario jogo nota comentario) = (Util.color "blue" True usuario) ++ (Util.color "magenta" False " - ") ++ (Util.color "red" False jogo) ++ (Util.color "magenta" False " - ") ++"Nota: " ++  (show nota) ++ "\n"
-                                                  ++ (Util.color "yellow" True " Comentário: ") ++ comentario
+  show (Avaliacao usuario jogo nota comentario) = Util.color "blue" True usuario ++ Util.color "magenta" False " - " ++ Util.color "red" False jogo ++ Util.color "magenta" False " - " ++"Nota: " ++  show nota ++ "\n"
+                                                  ++ Util.color "yellow" True " Comentário: " ++ comentario
 
 salvarAvaliacao :: Avaliacao.Avaliacao -> IO()
 salvarAvaliacao avaliacao =  do
