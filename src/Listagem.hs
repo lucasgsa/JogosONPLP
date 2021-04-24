@@ -93,4 +93,12 @@ module Listagem where
                                     ((fst atual) + (fst prox), (snd atual) + (snd prox))
                                     where prox = getAvaliacoesJogo nomeJogo xs
 
-
+    ordenaAvaliacoes :: [Jogo.Jogo] -> [Avaliacao] -> [Jogo.Jogo]
+    ordenaAvaliacoes [] _ = []
+    ordenaAvaliacoes (s:xs) z = ordenaAvaliacoes [x|x <- xs, (getMediaJogo (Jogo.nome x) z) < (getMediaJogo (Jogo.nome s) z)] z
+        ++ [s] ++
+     ordenaAvaliacoes [x|x <- xs,(getMediaJogo (Jogo.nome x) z) >= (getMediaJogo (Jogo.nome s) z)] z    
+     
+    -- 7. Deve ser possível listar os jogos com melhores avaliações;
+    listaAvaliacoesOrdenada :: [Jogo.Jogo] -> [Avaliacao]-> String   
+    listaAvaliacoesOrdenada listaJogos listaAvaliacoes = listarJogosAux(reverse (ordenaAvaliacoes listaJogos listaAvaliacoes))  

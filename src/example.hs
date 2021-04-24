@@ -12,9 +12,11 @@ main = do
 
     let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
 
-    putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
+    --putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
 
-    putStrLn (Listagem.listarAvaliacoesJogo "Counter-Strike: Global Offensive" listaJogos listaAvaliacoes)
+    --putStrLn (Listagem.listarAvaliacoesJogo "Counter-Strike: Global Offensive" listaJogos listaAvaliacoes)
 
-    -- putStrLn (Listagem.listarJogos listaJogos)
+    putStrLn (Listagem.listarJogos listaJogos)
+
+    --putStrLn (Listagem.listaAvaliacoesOrdenada  listaJogos listaAvaliacoes)
 
