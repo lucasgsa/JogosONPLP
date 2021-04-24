@@ -30,7 +30,7 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 - [X] 4. Deve ser possível listar os 5 últimos jogos cadastrados no sistema;
 - [X] 5. Deve ser possível listar os jogos por categoria;
 - [X] 6. Deve ser possível listar os jogos por ordem de ano de Lançamento;
-- [ ] 7. Deve ser possível listar os jogos com melhores avaliações;
+- [X] 7. Deve ser possível listar os jogos com melhores avaliações;
 - [X] 8. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
 - [X] 9. Deve ser possível listar as avaliações de um jogo.
 - [ ] 10. Um usuário poderá pedir uma indicação de um jogo(Respondendo perguntas e retornando o jogo que mais se encaixar nas perguntas respondidas)
