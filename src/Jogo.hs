@@ -1,5 +1,5 @@
 module Jogo where
-import Util as Util
+import Util
 
 data Jogo = Jogo {
   nome :: String,
@@ -12,19 +12,19 @@ data Jogo = Jogo {
 } deriving (Eq,Ord)
 
 instance Show Jogo where
-  show (Jogo nome categorias reqMinimos plataforma preco online anoLancamento) = (Util.color "green" True "  Título: ") ++ (Util.color "cyan" False nome) ++ "\n"
-                                                                   ++ (Util.color "white" False ("   Plataforma: " ++ plataforma)) ++ "\n"
-                                                                   ++ (Util.color "white" False ("   Requisitos Mínimos: " ++ (convertArrayToString reqMinimos))) ++ "\n"
-                                                                   ++ (Util.color "white" False ("   Gêneros: " ++ (convertArrayToString categorias))) ++ "\n"
-                                                                   ++ (Util.color "white" False ("   Ano lançamento: " ++ show anoLancamento)) ++ "\n"
-                                                                   ++ (Util.color "yellow" False ("   " ++ (if online then "Cooperativo online" else "Um jogador"))) ++ "\n"
-                                                                   ++ (Util.color "red" True ("   Preço: " ++ (if (preco /= 0) then ("R$" ++ show preco) else "Grátis")))
+  show (Jogo nome categorias reqMinimos plataforma preco online anoLancamento) = Util.color "green" True "  Título: " ++ Util.color "cyan" False nome ++ "\n"
+                                                                   ++ Util.color "white" False ("   Plataforma: " ++ plataforma) ++ "\n"
+                                                                   ++ Util.color "white" False ("   Requisitos Mínimos: " ++ (convertArrayToString reqMinimos)) ++ "\n"
+                                                                   ++ Util.color "white" False ("   Gêneros: " ++ (convertArrayToString categorias)) ++ "\n"
+                                                                   ++ Util.color "white" False ("   Ano lançamento: " ++ show anoLancamento) ++ "\n"
+                                                                   ++ Util.color "yellow" False ("   " ++ (if online then "Cooperativo online" else "Um jogador")) ++ "\n"
+                                                                   ++ Util.color "red" True ("   Preço: " ++ (if (preco /= 0) then ("R$" ++ show preco) else "Grátis"))
 convertArrayToString :: [String] -> String
-convertArrayToString (h: []) = h
-convertArrayToString (h:t) = h ++ "," ++ convertArrayToString (t)
+convertArrayToString [h] = h
+convertArrayToString (h:t) = h ++ "," ++ convertArrayToString t
 
 getArrayToString :: [String] -> String
-getArrayToString array = "[" ++ convertArrayToString(array) ++ "]"
+getArrayToString array = "[" ++ convertArrayToString array ++ "]"
 
 salvarJogo :: Jogo.Jogo -> IO()
 salvarJogo jogo = do
