@@ -12,9 +12,6 @@ module Util where
     color "cyan"    bold texto = (if bold then "\ESC[1m" else "\ESC[0m") ++ "\ESC[36m" ++ texto ++ "\ESC[0m"
     color "white"   bold texto = (if bold then "\ESC[1m" else "\ESC[0m") ++ "\ESC[37m" ++ texto ++ "\ESC[0m"
 
-    bold = "\ESC[1m"
-    nobold = "\ESC[0m"
-
     -- Dado uma string ex: "[1,2,3]" a função retira os colchetes, e aplica um split, ou seja, retornaria [1,2,3].
     parseStringList :: String -> [String]
     parseStringList linha = splitOn "," (retiraBracketsStringList linha)

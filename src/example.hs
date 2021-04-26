@@ -23,6 +23,6 @@ main = do
 
     -- putStrLn (Listagem.listarAvaliacoesJogo "Among Us" listaJogos listaAvaliacoes)
 
-    -- Listando 3 indicações para o usuario.
+    -- Listando indicação para o usuario.
     putStrLn (Indicacao.pedirIndicacao "Kipon" listaAvaliacoes listaJogos)
 
