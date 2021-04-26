@@ -32,11 +32,7 @@ module Listagem where
     listarJogosPorAnoLancamento :: [Jogo.Jogo ] -> String
     listarJogosPorAnoLancamento listarJogos = listarJogosAux(take 10 (reverse(mergeSort listarJogos)))
 
-    -- tipo 1 - normal, verificando x <= y
-    -- tipo 2 - por ano de lançamento
-    -- tipo 3 - por nota de avaliação !!!NÃO IMPLEMENTADO!!!
-    -- tipo não correto - retorna a lista do jeito que entrou
-    -- Ordenação(Merge Sort) - Ordenar pelo tipo passado
+    -- por ano de lançamento
     mergeSort :: [Jogo.Jogo] -> [Jogo]
     mergeSort [] = []
     mergeSort xs
@@ -97,8 +93,8 @@ module Listagem where
     ordenaAvaliacoes [] _ = []
     ordenaAvaliacoes (s:xs) z = ordenaAvaliacoes [x|x <- xs, getMediaJogo (Jogo.nome x) z < getMediaJogo (Jogo.nome s) z] z
         ++ [s] ++
-     ordenaAvaliacoes [x|x <- xs,getMediaJogo (Jogo.nome x) z >= getMediaJogo (Jogo.nome s) z] z
-
-    -- 7. Deve ser possível listar os jogos com melhores avaliações;
+    ordenaAvaliacoes [x|x <- xs,getMediaJogo (Jogo.nome x) z >= getMediaJogo (Jogo.nome s) z] z
+    
+    -- 7. Deve ser possível listar os jogos com melhores avaliações
     listaAvaliacoesOrdenada :: [Jogo.Jogo] -> [Avaliacao]-> String
     listaAvaliacoesOrdenada listaJogos listaAvaliacoes = listarJogosAux(reverse (ordenaAvaliacoes listaJogos listaAvaliacoes))
