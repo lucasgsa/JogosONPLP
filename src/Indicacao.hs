@@ -6,12 +6,16 @@ module Indicacao where
     import Data.List.Split (splitOn)
 
     -- 10 -- Um usuário poderá pedir uma indicação de um jogo
-    indicarJogo :: String -> [Avaliacao] -> [Jogo] -> Int -> Jogo
-    indicarJogo nomeUser avaliacoes jogos numIndic = do 
+    pedirIndicacao :: String -> [Avaliacao] -> [Jogo] -> String
+    pedirIndicacao nomeUser avaliacoes jogos = show (indicarJogo nomeUser avaliacoes jogos)
+
+
+    indicarJogo :: String -> [Avaliacao] -> [Jogo] -> Jogo
+    indicarJogo nomeUser avaliacoes jogos = do 
                                             let jogosNaoAvaliados = retiraAvaliado jogos avaliacoes nomeUser
                                             let tupla = geraTuplaPontuacao (Listagem.ordenaAvaliacoes jogosNaoAvaliados avaliacoes)
                                             let tuplaFinal = adicionarSimilaridadesLista nomeUser avaliacoes jogos tupla
-                                            fst ((reverse (ordenaTupla tuplaFinal) )!!numIndic) 
+                                            fst ((reverse (ordenaTupla tuplaFinal))!!0)  
 
     ordenaTupla :: [(Jogo, Double)] -> [(Jogo, Double)]
     ordenaTupla [] = []
