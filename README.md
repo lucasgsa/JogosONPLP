@@ -22,6 +22,9 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 * O mercado de Jogos é o maior mercado de entretenimento do mundo, tendo uma variada gama em diferentes plataformas, milhões de jogos eletrônicos são lançados ano após ano, gerando receitas extraordinárias e muitas opções para os players, usuários dos jogos online.
 * Estima-se que apenas no ano de 2020 mais de 200 bilhões de dólares foi movimentado por essa indústria, sendo assim, se faz necessário a criação de uma plataforma que facilite a inserção de novos jogadores nesse mercado, além de classificar os jogos existentes.
 
+## Requisitos Haskell:
+* Biblioteca Data.Split, caso não tenha, faça "cabal install split" para instalar.
+
 ## Especificação / Casos de Uso:
 
 - [X] 1. Deve ser possível cadastrar usuários (Um usuário deve possuir um nickname);
