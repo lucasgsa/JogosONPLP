@@ -4,18 +4,18 @@ module CarregaArquivos where
     import Avaliacao as Avaliacao
     import Data.List.Split (splitOn)
 
-    -- Le o arquivo de dados de avaliações, e retorna uma lista de string que cada uma armazena uma avaliação.
+    -- / Le o arquivo de dados de avaliações, e retorna uma lista de string que cada uma armazena uma avaliação.
     lerArquivoAvaliacoes :: String -> IO([String])
     lerArquivoAvaliacoes path = do
         arquivo <- readFile path
         let listaAvaliacoes = lines arquivo
         return listaAvaliacoes
     
-    -- Retorna uma lista com as avaliações a partir de uma lista de strings contendo as avaliações.
+    -- / Retorna uma lista com as avaliações a partir de uma lista de strings contendo as avaliações.
     carregarAvaliacoes :: [String] -> [Avaliacao]
     carregarAvaliacoes lista = [decodeAvaliacao x | x <- lista]
     
-    -- A partir da string gerada da avaliação, retorna a Avaliação.
+    -- / A partir da string gerada da avaliação, retorna a Avaliação.
     decodeAvaliacao :: String -> Avaliacao
     decodeAvaliacao line = Avaliacao {
                                 Avaliacao.usuario = paramAvaliacao!!0,
@@ -25,18 +25,18 @@ module CarregaArquivos where
                             }
                         where paramAvaliacao = splitOn "|" line
 
-    -- Le o arquivo de dados de jogos, e retorna uma lista de strings que armazena cada jogo.
+    -- / Le o arquivo de dados de jogos, e retorna uma lista de strings que armazena cada jogo.
     lerArquivoJogos :: String -> IO([String])
     lerArquivoJogos path = do
         arquivo <- readFile path
         let listaJogos = lines arquivo
         return listaJogos
 
-    -- Retorna uma lista com os jogos a partir de uma lista de strings contendo os jogos.
+    -- / Retorna uma lista com os jogos a partir de uma lista de strings contendo os jogos.
     carregarJogos :: [String] -> [Jogo]
     carregarJogos lista = [decodeJogo x | x <- lista]
 
-    -- A partir da string gerada do jogo, retorna o Jogo.
+    -- / A partir da string gerada do jogo, retorna o Jogo.
     decodeJogo :: String -> Jogo
     decodeJogo line = Jogo {
                         Jogo.nome = paramJogo!!0,

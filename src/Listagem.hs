@@ -3,7 +3,7 @@ module Listagem where
     import Jogo
     import Avaliacao
 
-    -- 3. Deve ser possível listar todos os jogos disponíveis
+    -- / 3. Deve ser possível listar todos os jogos disponíveis
     listarJogos :: [Jogo.Jogo] -> String
     listarJogos x = Util.color "blue" True "Todos os jogos: " ++ "\n" ++ listarJogosAux x
 
@@ -12,11 +12,11 @@ module Listagem where
     listarJogosAux [x] = show x
     listarJogosAux (x:xs) = show x ++ "\n\n" ++ listarJogosAux xs
 
-    -- 4. Deve ser possível listar os últimos jogos cadastrados no sistema;
+    -- / 4. Deve ser possível listar os últimos jogos cadastrados no sistema;
     listarUltimosJogos :: [Jogo.Jogo ] -> String
     listarUltimosJogos listaJogos = listarJogosAux(take 5 (reverse listaJogos))
 
-    -- 5. Deve ser possível listar os jogos por categoria;
+    -- / 5. Deve ser possível listar os jogos por categoria;
     listarJogosCategoria :: [Char] -> [Jogo] -> [Char]
     listarJogosCategoria categoria listaJogos = Util.color "blue" True ("Jogos da categoria "++categoria++": ") ++ "\n"
                                                 ++listarJogosAux (filterCategoria categoria listaJogos)
@@ -27,16 +27,12 @@ module Listagem where
     categoriaContem :: String -> Jogo -> Bool
     categoriaContem categoria jogo = categoria `elem` Jogo.categorias jogo
 
-    -- 6. Deve ser possível listar os jogos em ordem de lançamento.
+    -- / 6. Deve ser possível listar os jogos em ordem de lançamento.
 
     listarJogosPorAnoLancamento :: [Jogo.Jogo ] -> String
     listarJogosPorAnoLancamento listarJogos = listarJogosAux(take 10 (reverse(mergeSort listarJogos)))
 
-    -- tipo 1 - normal, verificando x <= y
-    -- tipo 2 - por ano de lançamento
-    -- tipo 3 - por nota de avaliação !!!NÃO IMPLEMENTADO!!!
-    -- tipo não correto - retorna a lista do jeito que entrou
-    -- Ordenação(Merge Sort) - Ordenar pelo tipo passado
+    -- ordena pelo ano de lançamento
     mergeSort :: [Jogo.Jogo] -> [Jogo]
     mergeSort [] = []
     mergeSort xs
@@ -56,7 +52,7 @@ module Listagem where
     segundaParte :: [Jogo] -> [Jogo]
     segundaParte xs = let { n = length xs } in drop (div n 2) xs
 
-    -- 9 - Deve ser possível listar as avaliações de um jogo. 
+    -- / 9 - Deve ser possível listar as avaliações de um jogo. 
     listarAvaliacoesJogo :: String -> [Jogo] -> [Avaliacao] -> String
     listarAvaliacoesJogo _ _ []= "Não há avaliações no sistema."
     listarAvaliacoesJogo nomeJogo jogos avaliacoes
@@ -93,12 +89,13 @@ module Listagem where
                                     (fst atual + fst prox, snd atual + snd prox)
                                     where prox = getAvaliacoesJogo nomeJogo xs
 
-    ordenaAvaliacoes :: [Jogo.Jogo] -> [Avaliacao] -> [Jogo.Jogo]
-    ordenaAvaliacoes [] _ = []
-    ordenaAvaliacoes (s:xs) z = ordenaAvaliacoes [x|x <- xs, getMediaJogo (Jogo.nome x) z < getMediaJogo (Jogo.nome s) z] z
-        ++ [s] ++
-     ordenaAvaliacoes [x|x <- xs,getMediaJogo (Jogo.nome x) z >= getMediaJogo (Jogo.nome s) z] z
-
     -- 7. Deve ser possível listar os jogos com melhores avaliações;
     listaAvaliacoesOrdenada :: [Jogo.Jogo] -> [Avaliacao]-> String
     listaAvaliacoesOrdenada listaJogos listaAvaliacoes = listarJogosAux(reverse (ordenaAvaliacoes listaJogos listaAvaliacoes))
+
+    -- / Ordena pela nota do jogo.
+    ordenaAvaliacoes :: [Jogo.Jogo] -> [Avaliacao] -> [Jogo.Jogo]
+    ordenaAvaliacoes [] _ = []
+    ordenaAvaliacoes (s:xs) z = ordenaAvaliacoes [x|x <- xs, getMediaJogo (Jogo.nome x) z < getMediaJogo (Jogo.nome s) z] z
+                                    ++ [s] ++
+                                ordenaAvaliacoes [x|x <- xs,getMediaJogo (Jogo.nome x) z >= getMediaJogo (Jogo.nome s) z] z

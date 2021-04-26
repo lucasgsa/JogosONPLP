@@ -12,12 +12,14 @@ instance Show Avaliacao where
   show (Avaliacao usuario jogo nota comentario) = Util.color "blue" True usuario ++ Util.color "magenta" False " - " ++ Util.color "red" False jogo ++ Util.color "magenta" False " - " ++"Nota: " ++  show nota ++ "\n"
                                                   ++ Util.color "yellow" True " Comentário: " ++ comentario
 
+-- / Retorna os jogos avaliados pelo usuário.
 avaliadosPor :: String -> [Avaliacao] -> [String]
 avaliadosPor _ [] = []
 avaliadosPor usuario (x:xs) = if (Avaliacao.usuario x) == usuario 
                               then (Avaliacao.jogo x) : (avaliadosPor usuario xs)
                               else (avaliadosPor usuario xs)
 
+-- / Retorna a nota que foi dada por um usuário a um jogo.
 notaDada :: String -> String -> [Avaliacao] -> Double
 notaDada _ _ [] = 0
 notaDada user jogo (x:xs) = if ((Avaliacao.usuario x == user) && (Avaliacao.jogo x == jogo))

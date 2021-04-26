@@ -13,16 +13,31 @@ main = do
 
     let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
 
-    -- putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
+    -- 1 Cadastrar usuario
 
-    -- putStrLn (Listagem.listarAvaliacoesJogo "Counter-Strike: Global Offensive" listaJogos listaAvaliacoes)
+    -- 2 Cadastrar jogo
 
+    -- 3
     -- putStrLn (Listagem.listarJogos listaJogos)
 
+    -- 4
+    -- putStrLn (Listagem.listarUltimosJogos listaJogos)
+
+    -- 5
+    -- putStrLn (Listagem.listarJogosCategoria "fps" listaJogos)
+    
+    -- 6
+    -- putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
+
+    -- 7
     -- putStrLn (Listagem.listaAvaliacoesOrdenada  listaJogos listaAvaliacoes)
 
+    -- 8
     -- putStrLn (Listagem.listarAvaliacoesJogo "Among Us" listaJogos listaAvaliacoes)
+    -- putStrLn (Listagem.listarAvaliacoesJogo "Counter-Strike: Global Offensive" listaJogos listaAvaliacoes)
+    
+    -- 9  Comentar Jogo
 
-    -- Listando 3 indicações para o usuario.
-    putStrLn (Indicacao.pedirIndicacao "Kipon" listaAvaliacoes listaJogos)
+    -- 10. Listando indicação para o usuario.
+    -- putStrLn (Indicacao.pedirIndicacao "Kipon" listaAvaliacoes listaJogos)
 
