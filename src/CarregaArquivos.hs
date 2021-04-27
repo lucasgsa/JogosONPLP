@@ -1,8 +1,24 @@
 module CarregaArquivos where
     import Util as Util
     import Jogo as Jogo
+    import Usuario as Usuario
     import Avaliacao as Avaliacao
     import Data.List.Split (splitOn)
+
+    -- / Le o arquivo de dados de usuarios, e retorna uma lista de string que cada uma armazena um usuario.
+    lerArquivoUsuarios :: String -> IO([String])
+    lerArquivoUsuarios path = do
+        arquivo <- readFile path
+        let listaUsuarios = lines arquivo
+        return listaUsuarios
+
+    carregarUsuarios :: [String] -> [Usuario]
+    carregarUsuarios lista = [decodeUsuario x | x <- lista]
+
+    decodeUsuario :: String -> Usuario
+    decodeUsuario line = Usuario {
+                            Usuario.nickname = line
+    }
 
     -- / Le o arquivo de dados de avaliações, e retorna uma lista de string que cada uma armazena uma avaliação.
     lerArquivoAvaliacoes :: String -> IO([String])

@@ -9,9 +9,15 @@ main = do
 
     avaliacoes <- CarregaArquivos.lerArquivoAvaliacoes "dados/avaliacoes.txt"
 
+    usuarios <- CarregaArquivos.lerArquivoAvaliacoes "dados/usuarios.txt"
+
     let listaJogos = CarregaArquivos.carregarJogos jogos
 
     let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
+
+    let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
+
+    -- putStrLn (show listaUsuarios)
 
     -- 1 Cadastrar usuario
 
@@ -39,5 +45,5 @@ main = do
     -- 9  Comentar Jogo
 
     -- 10. Listando indicação para o usuario.
-    -- putStrLn (Indicacao.pedirIndicacao "Kipon" listaAvaliacoes listaJogos)
+    -- putStrLn (Indicacao.pedirIndicacao "Kipon" listaAvaliacoes listaJogos listaUsuarios)
 

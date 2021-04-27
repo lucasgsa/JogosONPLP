@@ -32,3 +32,7 @@ salvarJogo jogo = do
   let jogoStr = Jogo.nome jogo ++ "|" ++ getArrayToString (Jogo.categorias jogo) ++ "|" ++ getArrayToString (Jogo.reqMinimos jogo) ++ "|" ++ Jogo.plataforma jogo ++ "|" ++ show (Jogo.preco jogo) ++ "|" ++ show (Jogo.online jogo) ++ "|" ++ show (Jogo.anoLancamento jogo)
   appendFile "dados/jogos.txt" (jogoStr ++ "\n")
   return ()
+
+existeJogo :: String -> [Jogo] -> Bool
+existeJogo _ [] = False
+existeJogo nomeJogo (x:xs) = (Jogo.nome x == nomeJogo) || existeJogo nomeJogo xs
