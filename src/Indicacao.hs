@@ -3,12 +3,15 @@ module Indicacao where
     import Jogo
     import Avaliacao
     import Listagem
+    import Usuario
     import Data.List.Split (splitOn)
 
     -- / 10. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
     -- Dado o nome do usuário, a lista de avaliações e a lista de jogos, deve ser retornado uma String representando o jogo indicado pelo sistema.
-    pedirIndicacao :: String -> [Avaliacao] -> [Jogo] -> String
-    pedirIndicacao nomeUser avaliacoes jogos = show (indicarJogo nomeUser avaliacoes jogos)
+    pedirIndicacao :: String -> [Avaliacao] -> [Jogo] -> [Usuario] -> String
+    pedirIndicacao nomeUser avaliacoes jogos usuarios = if (Usuario.existeUsuario nomeUser usuarios) 
+                                                        then show (indicarJogo nomeUser avaliacoes jogos)
+                                                        else Util.color "red" True "Usuário inexistente!"
 
     -- / Dado o nome do usuário, a lista de avaliações e a lista de jogos, deve ser retornado o jogo indicado.
     indicarJogo :: String -> [Avaliacao] -> [Jogo] -> Jogo
