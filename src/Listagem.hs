@@ -56,16 +56,11 @@ module Listagem where
     listarAvaliacoesJogo :: String -> [Jogo] -> [Avaliacao] -> String
     listarAvaliacoesJogo _ _ []= "Não há avaliações no sistema."
     listarAvaliacoesJogo nomeJogo jogos avaliacoes
-        |existeJogo nomeJogo jogos = Util.color "red" True ("Avaliações do jogo "++Util.color "white" True nomeJogo ++ ":\n")
+        |Jogo.existeJogo nomeJogo jogos = Util.color "red" True ("Avaliações do jogo "++Util.color "white" True nomeJogo ++ ":\n")
                                                         ++ (Util.color "green" False "Nota média do jogo: " ++ show (getMediaJogo nomeJogo avaliacoes) ++ "\n")
                                                         ++ listarAvaliacoesJogoAux nomeJogo avaliacoes
         |listarAvaliacoesJogoAux nomeJogo avaliacoes == "" = Util.color "red" True ("O jogo "++ nomeJogo ++ " não possui avaliações no sistema.")
         |otherwise = Util.color "red" True ("O jogo "++ nomeJogo ++ " não está cadastrado.")
-
-
-    existeJogo :: String -> [Jogo] -> Bool
-    existeJogo _ [] = False
-    existeJogo nomeJogo (x:xs) = (Jogo.nome x == nomeJogo) || existeJogo nomeJogo xs
 
     listarAvaliacoesJogoAux :: String -> [Avaliacao] -> String
     listarAvaliacoesJogoAux _ [] = ""
