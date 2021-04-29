@@ -9,4 +9,4 @@ PlayerUnknown's Battlegrounds|[battleroyale]|[Windows 7,i5 4430 ou FX 6300,8GB,G
 Rocket League|[esporte,competitivo]|[Windows 7,Processador Dual-Core,4GB,GTX 760 ou R7 270X]|[PC/CONSOLE]|0.0|True|2015
 ARK: Survival Evolved|[aventura,acao]|[Windows 7,i5-2400 ou FX-8320,8GB,GTX 670 2GB ou HD 7870]|[PC/CONSOLE]|93.99|True|2015
 Valorant|[fps, habilidades, competitivo]|[Intel i3 4150,4GB,GeForce GT 730]|PC|0.0|True|2020
-Among Us|[sobrevivencia]|[Windows 7,1GB]|[PC/CONSOLE/MOBILE]|10.89|True|2018
+Among Us|[sobrevivencia]|[Windows 7,1GB]|[PC/CONSOLE/MOBILE]|10.89|True|2018PointBlank|[fps, rpg]|[processador 110x, Windows 10]|PC|20.0|True|2014

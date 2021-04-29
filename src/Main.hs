@@ -18,7 +18,7 @@ main = do
     aplicativo        
     opcao  
     
-
+-- Método que retorna apenas um letreiro
 aplicativo:: IO()
 aplicativo = do
     putStrLn ("\n\n===================\n" ++
@@ -27,7 +27,7 @@ aplicativo = do
               )
 
 
---Método que retorna o menu inicial
+-- Método que retorna o menu inicial
 menu :: IO()
 menu = do
     putStr ("\n\nInforme a opção desejada: \n")    
@@ -40,7 +40,7 @@ menu = do
         "7. Sair\n"
         )
 
-
+-- Método que permite o usuario digitar o numero que indica o que ele quer realizar.
 opcao :: IO()
 opcao = do
     menu
@@ -48,60 +48,86 @@ opcao = do
     input <- getLine
 
     if input == "1" then do
-        putStrLn ("Cadastro de Usuário:\n")
         cadastrarUsuario
     else if input == "2" then do        
-        putStrLn ("Cadastrar um Jogo:\n")
-        --cadastrarJogo
+        cadastrarJogo
     else if input == "3" then do
         listagemJogos    
-        putStrLn (" ")
     else if input == "4" then do
-        putStrLn ("Voce selecionou a opcao 4")
+        listarAvaliacoesJogo
     else if input == "5" then do
-        putStrLn ("Voce selecionou a opcao 5")
+        avaliarJogo
     else if input == "6" then do
-        putStrLn ("Voce selecionou a opcao 6")
+        pedirIndicacaoJogo
     else if input == "7" then do 
         putStrLn("Programa finalizado!")
     else do
        putStrLn("Opção inválida")
        opcao
 
+-- Método que cadastra o Usuario, capturando o nome do Usuário.
 cadastrarUsuario :: IO()
 cadastrarUsuario = do
+    usuarios <- CarregaArquivos.lerArquivoAvaliacoes "dados/usuarios.txt"
+    let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
+    putStrLn ("Cadastro de Usuário:\n")
     putStrLn ("Insira o nome do Usuário:")
     nome <- getLine
     if nome == "" then do 
         putStr("O nome não pode ser vazio.")
         cadastrarUsuario
-        else do 
-            let novoUsuario = Usuario.Usuario{
-                Usuario.nickname = nome
-            }
-            Usuario.salvarUsuario novoUsuario
-            putStrLn("Usuário cadastrado com sucesso")
+    else if Usuario.existeUsuario nome listaUsuarios then do 
+        putStrLn("Usuário já cadastrado.")
+    else do 
+        let novoUsuario = Usuario.Usuario{
+            Usuario.nickname = nome
+        }
+        Usuario.salvarUsuario novoUsuario
+        putStrLn("Usuário cadastrado com sucesso")
     opcao
+
+-- Método que cadastra um jogo capturando o nome, as categorias, os requisitos minimos, a plataforma, 
+-- o preco, o ano de lançamento do jogo e se é online ou não. 
+cadastrarJogo :: IO()
+cadastrarJogo = do
+    jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
+    let listaJogos = CarregaArquivos.carregarJogos jogos
+    putStrLn ("Cadastrar um Jogo:\n")
+    putStrLn("Insira o nome do Jogo:")
+    nome <- getLine
+    putStrLn("Insira as categorias separadas por virgula:")
+    categorias <- getLine
+    putStrLn("Insira os requisitos minimo:")
+    reqMin <- getLine
+    putStrLn("Insira a plataforma:")
+    plataforma <- getLine
+    putStrLn("Insira o preco:")
+    preco <- getLine
+    putStrLn("O jogo é online? (s/n)")
+    isOnline <- getLine
+    putStrLn("Qual é o ano de lançamento?")
+    ano <- getLine
+
     
---cadastrarJogo :: IO()
---cadastrarJogo = do
-  --  putStrLn("Insira o nome do Jogo:")
-    --nome <- getLine
-    --putStrLn("Insira as categorias:")
-    --categorias <- getLine
-    --putStrLn("Insira os requisitos minimo:")
-    --reqMin <- getLine
-    --putStrLn("Insira a plataforma:")
-    --plataforma <- getLine
-    --putStrLn("Insira o preco:")
-    --preco <- getLine
-    --putStrLn("O jogo é online?")
-    --isOnline <- getLine
-    --putStrLn("Qual é o ano de lançamento?")
-    --ano <- getLine
+
+    let novoJogo = Jogo.Jogo{
+        Jogo.nome = nome,
+        Jogo.categorias = splitOn "," categorias,
+        Jogo.reqMinimos = splitOn "," reqMin,
+        Jogo.plataforma = plataforma,
+        Jogo.preco = read(preco) :: Double,
+        Jogo.online = if (isOnline == "s") then True else False,
+        Jogo.anoLancamento = read(ano) :: Integer
+    }
+
+    if Jogo.existeJogo nome listaJogos  then do 
+        putStrLn("Jogo já cadastrado")
+    else do 
+        Jogo.salvarJogo novoJogo
+        putStrLn("Jogo cadastrado com sucesso")
 
 
-
+-- Metódo que retorna um menu dos tipos de listagem de jogos possiveis. 
 listagemJogos:: IO()
 listagemJogos = do 
     putStrLn ("\n1. Listar todos os jogos disponíveis\n" ++ 
@@ -112,7 +138,7 @@ listagemJogos = do
         "6. Sair \n" )
   
 
-
+-- Método que retorna as listagens de jogos de acordo com aquilo que usuário escolheu.
 opcaoListagem:: IO()
 opcaoListagem = do 
     listagemJogos
@@ -151,3 +177,75 @@ opcaoListagem = do
         putStrLn("Opção inválida")
         opcao
 
+-- Método que retorna as listagens de avaliações de um determinado jogo. 
+listarAvaliacoesJogo:: IO()
+listarAvaliacoesJogo = do 
+    avaliacoes <- CarregaArquivos.lerArquivoAvaliacoes "dados/avaliacoes.txt"
+    let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
+
+    jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
+    let listaJogos = CarregaArquivos.carregarJogos jogos
+    
+    putStrLn("\nInsira o nome do jogo que você deseja ver suas avaliações:")
+    jogo <- getLine 
+    if Jogo.existeJogo jogo listaJogos then do
+        putStrLn("")
+        putStrLn(Listagem.listarAvaliacoesJogo jogo listaJogos listaAvaliacoes)
+        opcao
+    else do 
+        putStrLn("Jogo não cadastrado")
+        opcao
+
+-- Método que cadastra uma avaliação de um determinado jogo, capturando o nome do usuário que esta avaliando
+-- o nome do jogo, a nota da avaliação e o comentario dessa avaliação.
+avaliarJogo :: IO()
+avaliarJogo = do
+    jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
+    let listaJogos = CarregaArquivos.carregarJogos jogos
+
+    usuarios <- CarregaArquivos.lerArquivoAvaliacoes "dados/usuarios.txt"
+    let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
+
+    
+    putStrLn("\n    Insira o nome do Usuário:")
+    nomeUsuario <- getLine
+    putStrLn("Insira o nome do Jogo:")
+    nomeJogo <- getLine
+    putStrLn("Insira a nota do Jogo")
+    nota <- getLine
+    putStrLn("Insira um comentario:")
+    comentario <- getLine
+
+    if Jogo.existeJogo nomeJogo listaJogos then do
+        if Usuario.existeUsuario nomeUsuario listaUsuarios then do 
+            let novaAvaliacao = Avaliacao.Avaliacao{
+                Avaliacao.usuario = nomeUsuario,
+                Avaliacao.jogo = nomeJogo,
+                Avaliacao.nota = read(nota),
+                Avaliacao.comentario = comentario
+            }
+            Avaliacao.salvarAvaliacao novaAvaliacao
+            putStrLn("Avaliação cadastrada com sucesso")
+            opcao
+        else do 
+            putStrLn("Usuario não cadastrado.")
+            opcao
+    else do 
+        putStrLn("Jogo não cadastrado.")
+        opcao
+
+-- Método que retorna as indicações para um determinado usuário.
+pedirIndicacaoJogo :: IO()
+pedirIndicacaoJogo = do 
+    jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
+    avaliacoes <- CarregaArquivos.lerArquivoAvaliacoes "dados/avaliacoes.txt"
+    usuarios <- CarregaArquivos.lerArquivoAvaliacoes "dados/usuarios.txt"
+
+    let listaJogos = CarregaArquivos.carregarJogos jogos
+    let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
+    let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
+
+    putStrLn("\nInsira o nome do usuário:")
+    nome <- getLine 
+    putStrLn(Indicacao.pedirIndicacao nome listaAvaliacoes listaJogos listaUsuarios)
+   
