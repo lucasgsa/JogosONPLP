@@ -8,7 +8,7 @@ salvarUsuario :: Usuario.Usuario -> IO()
 salvarUsuario usuario = do
   -- TODO: É necessário veriricar se já existe um usuário com esse nick (Case Insensitive)
   let usuarioStr = Usuario.nickname usuario
-  appendFile "dados/usuario.txt" (usuarioStr ++  "\n")
+  appendFile "dados/usuarios.txt" (usuarioStr ++  "\n")
   return ()
 
 existeUsuario :: String -> [Usuario] -> Bool
