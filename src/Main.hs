@@ -125,6 +125,7 @@ cadastrarJogo = do
     else do 
         Jogo.salvarJogo novoJogo
         putStrLn("Jogo cadastrado com sucesso")
+    opcao
 
 
 -- Metódo que retorna um menu dos tipos de listagem de jogos possiveis. 
@@ -136,12 +137,12 @@ listagemJogos = do
         "4. Listar os jogos por ordem de ano de Lançamento\n" ++
         "5. Listar os jogos com as melhores avaliações\n" ++
         "6. Sair \n" )
+    opcaoListagem
   
 
 -- Método que retorna as listagens de jogos de acordo com aquilo que usuário escolheu.
 opcaoListagem:: IO()
 opcaoListagem = do 
-    listagemJogos
     jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
     let listaJogos = CarregaArquivos.carregarJogos jogos
 
@@ -160,7 +161,9 @@ opcaoListagem = do
         putStrLn (Listagem.listarUltimosJogos listaJogos)
         listagemJogos
     else if input == "3" then do
-        putStrLn (Listagem.listarJogosCategoria "fps" listaJogos)
+        putStrLn("Categoria que deseja ver: ")
+        categoriaEscolhida <- getLine
+        putStrLn (Listagem.listarJogosCategoria categoriaEscolhida listaJogos)
         listagemJogos
 
     else if input == "4" then do
@@ -248,4 +251,5 @@ pedirIndicacaoJogo = do
     putStrLn("\nInsira o nome do usuário:")
     nome <- getLine 
     putStrLn(Indicacao.pedirIndicacao nome listaAvaliacoes listaJogos listaUsuarios)
+    opcao
    
