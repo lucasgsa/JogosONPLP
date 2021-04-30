@@ -4,11 +4,12 @@ module CarregaArquivos where
     import Usuario as Usuario
     import Avaliacao as Avaliacao
     import Data.List.Split (splitOn)
+    import qualified System.IO.Strict as Strict
 
     -- / Le o arquivo de dados de usuarios, e retorna uma lista de string que cada uma armazena um usuario.
     lerArquivoUsuarios :: String -> IO([String])
     lerArquivoUsuarios path = do
-        arquivo <- readFile path
+        arquivo <- Strict.readFile path
         let listaUsuarios = lines arquivo
         return listaUsuarios
 
@@ -23,7 +24,7 @@ module CarregaArquivos where
     -- / Le o arquivo de dados de avaliações, e retorna uma lista de string que cada uma armazena uma avaliação.
     lerArquivoAvaliacoes :: String -> IO([String])
     lerArquivoAvaliacoes path = do
-        arquivo <- readFile path
+        arquivo <- Strict.readFile path
         let listaAvaliacoes = lines arquivo
         return listaAvaliacoes
     
@@ -44,7 +45,7 @@ module CarregaArquivos where
     -- / Le o arquivo de dados de jogos, e retorna uma lista de strings que armazena cada jogo.
     lerArquivoJogos :: String -> IO([String])
     lerArquivoJogos path = do
-        arquivo <- readFile path
+        arquivo <- Strict.readFile path
         let listaJogos = lines arquivo
         return listaJogos
 
