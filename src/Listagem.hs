@@ -25,7 +25,7 @@ module Listagem where
     filterCategoria categoria listaJogos = [ x | x <- listaJogos, categoriaContem categoria x]
 
     categoriaContem :: String -> Jogo -> Bool
-    categoriaContem categoria jogo = categoria `elem` Jogo.categorias jogo
+    categoriaContem categoria jogo = (Util.toLowerString categoria) `elem` [ Util.toLowerString x | x <- Jogo.categorias jogo]
 
     -- / 6. Deve ser possível listar os jogos em ordem de lançamento.
 
@@ -52,7 +52,7 @@ module Listagem where
     segundaParte :: [Jogo] -> [Jogo]
     segundaParte xs = let { n = length xs } in drop (div n 2) xs
 
-    -- / 9 - Deve ser possível listar as avaliações de um jogo. 
+    -- / 8 - Deve ser possível listar as avaliações de um jogo. 
     listarAvaliacoesJogo :: String -> [Jogo] -> [Avaliacao] -> String
     listarAvaliacoesJogo _ _ []= "Não há avaliações no sistema."
     listarAvaliacoesJogo nomeJogo jogos avaliacoes
@@ -64,7 +64,7 @@ module Listagem where
 
     listarAvaliacoesJogoAux :: String -> [Avaliacao] -> String
     listarAvaliacoesJogoAux _ [] = ""
-    listarAvaliacoesJogoAux nomeJogo (x:xs) = if nomeJogo == Avaliacao.jogo x
+    listarAvaliacoesJogoAux nomeJogo (x:xs) = if (Util.toLowerString nomeJogo) == (Util.toLowerString (Avaliacao.jogo x))
                                             then show x ++ "\n\n" ++ listarAvaliacoesJogoAux nomeJogo xs
                                             else listarAvaliacoesJogoAux nomeJogo xs
 
@@ -80,9 +80,25 @@ module Listagem where
     getAvaliacoesJogo :: String -> [Avaliacao] -> (Double, Integer)
     getAvaliacoesJogo _ [] = (0.0, 0)
     getAvaliacoesJogo nomeJogo (x:xs) = do
-                                    let atual = (if nomeJogo == Avaliacao.jogo x then (Avaliacao.nota x, 1) else (0,0))
+                                    let atual = (if ((Util.toLowerString nomeJogo) == (Util.toLowerString (Avaliacao.jogo x)))
+                                        then (Avaliacao.nota x, 1) else (0,0))
                                     (fst atual + fst prox, snd atual + snd prox)
                                     where prox = getAvaliacoesJogo nomeJogo xs
+
+    -- / 10. Deve ser possível listar as avaliações de um usuário.
+    listarAvaliacoesUsuario :: String -> [Avaliacao] -> String
+    listarAvaliacoesUsuario nomeUser avaliacoes = do
+                                                    Util.color "red" True ("Avaliações do usuário "++Util.color "white" True nomeUser ++ ":\n")
+                                                    ++ if ((length avaliacoesUser) == 0)
+                                                        then 
+                                                            Util.color "yellow" False ("Nada foi avaliado ainda!")
+                                                        else 
+                                                            listarAvaliacoesJogoAux nomeUser avaliacoes
+                                                    where avaliacoesUser = (avaliadosPor nomeUser avaliacoes)
+
+    listarAvaliacoesUsuarioAux :: [Avaliacao] -> String
+    listarAvaliacoesUsuarioAux (x:xs) = show (x) ++ "\n" 
+                                        ++ listarAvaliacoesUsuarioAux xs
 
     -- 7. Deve ser possível listar os jogos com melhores avaliações;
     listaAvaliacoesOrdenada :: [Jogo.Jogo] -> [Avaliacao]-> String
