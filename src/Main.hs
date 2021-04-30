@@ -13,10 +13,38 @@ import Data.Typeable
 import Data.Time.Calendar
 import System.Process
 import System.Info
+import System.Directory
+import System.FilePath.Posix
 
 main :: IO ()
-main = do          
+main = do      
+    checarECriaArquivos  
     opcao  
+
+checarECriaArquivos :: IO ()
+checarECriaArquivos = do
+    createDirectoryIfMissing True $ takeDirectory "dados/"
+    existeUsuarios <- doesFileExist "dados/usuarios.txt"
+    existeJogos <- doesFileExist "dados/jogos.txt"
+    existeAvaliacoes <- doesFileExist "dados/avaliacoes.txt"
+    if (not existeAvaliacoes) 
+        then do 
+            writeFile "dados/avaliacoes.txt" ""
+            putStrLn ""
+        else 
+            (putStrLn "")
+    if (not existeJogos) 
+            then do 
+                writeFile "dados/jogos.txt" ""
+                putStrLn ""
+            else 
+                (putStrLn "")
+    if (not existeUsuarios) 
+            then do 
+                writeFile "dados/usuarios.txt" ""
+                putStrLn ""
+            else 
+                (putStrLn "")
 
 aguardar :: IO()
 aguardar = do
