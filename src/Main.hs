@@ -20,7 +20,7 @@ main = do
 
 aguardar :: IO()
 aguardar = do
-            putStrLn "Pressione ENTER para continuar..."
+            putStrLn (Util.color "magenta" True "  Pressione ENTER para continuar...")
             enter <- getLine
             putStrLn ""
 
@@ -33,9 +33,10 @@ limparTela = do
 -- Método que retorna apenas um letreiro
 aplicativo:: IO()
 aplicativo = do
-    putStrLn ("\n\n===================\n" ++
-              "===== JOGOS ON ====\n"++
-              "===================\n"
+    putStrLn (Util.color "yellow" True "\n\n================================\n"
+              ++ (Util.color "yellow" True "=========== ") ++  (Util.color "blue" False "JOGOS ") ++ (Util.color "green" True "ON") ++ (Util.color "yellow" True " ===========\n")
+              ++ (Util.color "cyan" False "  Descubra seu jogo preferido!\n")
+              ++ (Util.color "yellow" True "================================")
               )
 
 
@@ -44,14 +45,16 @@ menu :: IO()
 menu = do
     limparTela
     aplicativo
-    putStr ("\n\nInforme a opção desejada: \n")    
-    putStrLn ("\n1. Cadastrar um Usuário\n" ++ 
-        "2. Cadastrar um Jogo\n" ++
-        "3. Listar Jogos\n" ++
-        "4. Listar as avaliações de um Jogo\n" ++
-        "5. Avaliar um Jogo\n" ++
-        "6. Pedir Indicação de um Jogo\n" ++
-        "7. Sair\n"
+    putStr (Util.color "magenta" True "\nInforme a opção desejada: \n\n")    
+    putStrLn (
+        (Util.color "green" True "1. ") ++ "Cadastrar um Usuário\n" ++ 
+        (Util.color "green" True "2. ") ++ "Cadastrar um Jogo\n" ++
+        (Util.color "green" True "3. ") ++ "Listar Jogos\n" ++
+        (Util.color "green" True "4. ") ++ "Listar as avaliações de um Jogo\n" ++
+        (Util.color "green" True "5. ") ++ "Avaliar um Jogo\n" ++
+        (Util.color "green" True "6. ") ++ "Pedir Indicação de um Jogo\n" ++
+        (Util.color "green" True "7. ") ++ "Mostrar avaliações de um usuário\n" ++
+        (Util.color "green" True "8. ") ++ "Sair\n"
         )
 
 -- Método que permite o usuario digitar o numero que indica o que ele quer realizar.
@@ -59,6 +62,7 @@ opcao :: IO()
 opcao = do
     menu
 
+    putStr (Util.color "yellow" True " > ")
     input <- getLine
 
     if input == "1" then do
@@ -73,10 +77,14 @@ opcao = do
         avaliarJogo
     else if input == "6" then do
         pedirIndicacaoJogo
-    else if input == "7" then do 
-        putStrLn("Programa finalizado!")
+    else if input == "7" then do
+        listarAvaliacoesUsuario
+    else if input == "8" then do 
+        putStrLn((Util.color "magenta" True "Obrigado por utilizar nosso sistema."))
+        putStrLn((Util.color "magenta" True "       Até a próxima ") ++ (Util.color "green" True ":)"))
+        putStrLn((Util.color "red" True "     Programa finalizado!"))
     else do
-       putStrLn("Opção inválida")
+       putStrLn((Util.color "red" True "Opção inválida"))
        aguardar
        opcao
 
@@ -85,21 +93,21 @@ cadastrarUsuario :: IO()
 cadastrarUsuario = do
     usuarios <- CarregaArquivos.lerArquivoAvaliacoes "dados/usuarios.txt"
     let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
-    putStrLn ("Cadastro de Usuário:\n")
-    putStrLn ("Insira o nome do Usuário:")
+    putStrLn ("Cadastro de Usuário:")
+    putStr ("   Insira o nome do Usuário: ")
     nome <- getLine
     if nome == "" then do 
-        putStr("O nome não pode ser vazio.")
+        putStr(Util.color "red" False "   O nome não pode ser vazio.")
         aguardar
         cadastrarUsuario
     else if Usuario.existeUsuario nome listaUsuarios then do 
-        putStrLn("Usuário já cadastrado.")
+        putStrLn(Util.color "red" False "   Usuário já cadastrado.")
     else do 
         let novoUsuario = Usuario.Usuario{
             Usuario.nickname = nome
         }
         Usuario.salvarUsuario novoUsuario
-        putStrLn("Usuário cadastrado com sucesso")
+        putStrLn(Util.color "green" False "   Usuário cadastrado com sucesso")
     aguardar
     opcao
 
@@ -110,19 +118,19 @@ cadastrarJogo = do
     jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
     let listaJogos = CarregaArquivos.carregarJogos jogos
     putStrLn ("Cadastrar um Jogo:\n")
-    putStrLn("Insira o nome do Jogo:")
+    putStr("  Insira o nome do Jogo: ")
     nome <- getLine
-    putStrLn("Insira as categorias separadas por virgula:")
+    putStr("  Insira as categorias separadas por virgula: ")
     categorias <- getLine
-    putStrLn("Insira os requisitos minimo:")
+    putStr("  Insira os requisitos minimo: ")
     reqMin <- getLine
-    putStrLn("Insira a plataforma:")
+    putStr("  Insira a plataforma: ")
     plataforma <- getLine
-    putStrLn("Insira o preco:")
+    putStr("  Insira o preco: ")
     preco <- getLine
-    putStrLn("O jogo é online? (s/n)")
+    putStr("  O jogo é online? (s/n) ")
     isOnline <- getLine
-    putStrLn("Qual é o ano de lançamento?")
+    putStr("  Qual é o ano de lançamento? ")
     ano <- getLine
 
     
@@ -138,10 +146,10 @@ cadastrarJogo = do
     }
 
     if Jogo.existeJogo nome listaJogos  then do 
-        putStrLn("Jogo já cadastrado")
+        putStrLn(Util.color "red" False "  Jogo já cadastrado")
     else do 
         Jogo.salvarJogo novoJogo
-        putStrLn("Jogo cadastrado com sucesso")
+        putStrLn(Util.color "green" False "  Jogo cadastrado com sucesso")
     aguardar
     opcao
 
@@ -151,12 +159,14 @@ listagemJogos:: IO()
 listagemJogos = do 
     limparTela
     aplicativo
-    putStrLn ("\n1. Listar todos os jogos disponíveis\n" ++ 
-        "2. Listar os últimos 5 jogos cadastrados\n" ++
-        "3. Listar os jogos por categoria\n" ++
-        "4. Listar os jogos por ordem de ano de Lançamento\n" ++
-        "5. Listar os jogos com as melhores avaliações\n" ++
-        "6. Sair \n" )
+    putStr (Util.color "magenta" True "\nInforme a opção desejada para listagem: \n\n")    
+    putStrLn (
+        (Util.color "green" True "1. ") ++ "Listar todos os jogos disponíveis\n" ++ 
+        (Util.color "green" True "2. ") ++ "Listar os últimos 5 jogos cadastrados\n" ++
+        (Util.color "green" True "3. ") ++ "Listar os jogos por categoria\n" ++
+        (Util.color "green" True "4. ") ++ "Listar os jogos por ordem de ano de Lançamento\n" ++
+        (Util.color "green" True "5. ") ++ "Listar os jogos com as melhores avaliações\n" ++
+        (Util.color "green" True "6. ") ++ "Sair \n" )
     opcaoListagem
   
 
@@ -183,7 +193,7 @@ opcaoListagem = do
         aguardar
         listagemJogos
     else if input == "3" then do
-        putStrLn("Categoria que deseja ver: ")
+        putStr("  Categoria que deseja ver: ")
         categoriaEscolhida <- getLine
         putStrLn (Listagem.listarJogosCategoria categoriaEscolhida listaJogos)
         aguardar
@@ -202,7 +212,7 @@ opcaoListagem = do
     else if input == "6" then do 
         opcao   
     else do
-        putStrLn("Opção inválida")
+        putStrLn(Util.color "red" False "  Opção inválida")
         aguardar
         opcao
 
@@ -215,7 +225,7 @@ listarAvaliacoesJogo = do
     jogos <- CarregaArquivos.lerArquivoJogos "dados/jogos.txt"
     let listaJogos = CarregaArquivos.carregarJogos jogos
     
-    putStrLn("\nInsira o nome do jogo que você deseja ver suas avaliações:")
+    putStr("\n    Insira o nome do jogo que você deseja ver suas avaliações: ")
     jogo <- getLine 
     if Jogo.existeJogo jogo listaJogos then do
         putStrLn("")
@@ -223,7 +233,7 @@ listarAvaliacoesJogo = do
         aguardar
         opcao
     else do 
-        putStrLn("Jogo não cadastrado")
+        putStrLn(Util.color "red" False "  Jogo não cadastrado")
         aguardar
         opcao
 
@@ -238,13 +248,13 @@ avaliarJogo = do
     let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
 
     
-    putStrLn("\n    Insira o nome do Usuário:")
+    putStr("\n    Insira o nome do Usuário: ")
     nomeUsuario <- getLine
-    putStrLn("Insira o nome do Jogo:")
+    putStr("  Insira o nome do Jogo: ")
     nomeJogo <- getLine
-    putStrLn("Insira a nota do Jogo")
+    putStr("  Insira a nota do Jogo: ")
     nota <- getLine
-    putStrLn("Insira um comentario:")
+    putStr("  Insira um comentario: ")
     comentario <- getLine
 
     if Jogo.existeJogo nomeJogo listaJogos then do
@@ -256,17 +266,28 @@ avaliarJogo = do
                 Avaliacao.comentario = comentario
             }
             Avaliacao.salvarAvaliacao novaAvaliacao
-            putStrLn("Avaliação cadastrada com sucesso")
+            putStrLn(Util.color "green" False "  Avaliação cadastrada com sucesso")
             aguardar
             opcao
         else do 
-            putStrLn("Usuario não cadastrado.")
+            putStrLn(Util.color "red" False "  Usuario não cadastrado.")
             aguardar
             opcao
     else do 
-        putStrLn("Jogo não cadastrado.")
+        putStrLn(Util.color "red" False "  Jogo não cadastrado.")
         aguardar
         opcao
+
+listarAvaliacoesUsuario :: IO()
+listarAvaliacoesUsuario = do
+    avaliacoes <- CarregaArquivos.lerArquivoAvaliacoes "dados/avaliacoes.txt"
+    let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
+
+    putStr("\n    Insira o nome do usuário: ")
+    nome <- getLine 
+    putStrLn(Listagem.listarAvaliacoesUsuario nome listaAvaliacoes)
+    aguardar
+    opcao
 
 -- Método que retorna as indicações para um determinado usuário.
 pedirIndicacaoJogo :: IO()
@@ -279,7 +300,7 @@ pedirIndicacaoJogo = do
     let listaAvaliacoes = CarregaArquivos.carregarAvaliacoes avaliacoes
     let listaUsuarios = CarregaArquivos.carregarUsuarios usuarios
 
-    putStrLn("\nInsira o nome do usuário:")
+    putStr("\n    Insira o nome do usuário: ")
     nome <- getLine 
     putStrLn(Indicacao.pedirIndicacao nome listaAvaliacoes listaJogos listaUsuarios)
     aguardar
