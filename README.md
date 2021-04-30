@@ -24,6 +24,7 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 
 ## Requisitos Haskell:
 * Biblioteca Data.Split, caso não tenha, faça "cabal install split" para instalar.
+* Biblioteca System.IO.Strict, caso não tenha, faça "cabal install strict" para instalar.
 
 ## Especificação / Casos de Uso:
 
