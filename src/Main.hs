@@ -11,12 +11,24 @@ import Data.List
 import System.IO.Unsafe(unsafeDupablePerformIO)
 import Data.Typeable
 import Data.Time.Calendar
-
+import System.Process
+import System.Info
 
 main :: IO ()
-main = do    
-    aplicativo        
+main = do          
     opcao  
+
+aguardar :: IO()
+aguardar = do
+            putStrLn "Pressione ENTER para continuar..."
+            enter <- getLine
+            putStrLn ""
+
+limparTela :: IO()
+limparTela = do
+                _ <- system comando
+                return ()
+            where comando = if (System.Info.os == "mingw32") then "cls" else "clear"
     
 -- Método que retorna apenas um letreiro
 aplicativo:: IO()
@@ -30,6 +42,8 @@ aplicativo = do
 -- Método que retorna o menu inicial
 menu :: IO()
 menu = do
+    limparTela
+    aplicativo
     putStr ("\n\nInforme a opção desejada: \n")    
     putStrLn ("\n1. Cadastrar um Usuário\n" ++ 
         "2. Cadastrar um Jogo\n" ++
@@ -63,6 +77,7 @@ opcao = do
         putStrLn("Programa finalizado!")
     else do
        putStrLn("Opção inválida")
+       aguardar
        opcao
 
 -- Método que cadastra o Usuario, capturando o nome do Usuário.
@@ -75,6 +90,7 @@ cadastrarUsuario = do
     nome <- getLine
     if nome == "" then do 
         putStr("O nome não pode ser vazio.")
+        aguardar
         cadastrarUsuario
     else if Usuario.existeUsuario nome listaUsuarios then do 
         putStrLn("Usuário já cadastrado.")
@@ -84,6 +100,7 @@ cadastrarUsuario = do
         }
         Usuario.salvarUsuario novoUsuario
         putStrLn("Usuário cadastrado com sucesso")
+    aguardar
     opcao
 
 -- Método que cadastra um jogo capturando o nome, as categorias, os requisitos minimos, a plataforma, 
@@ -125,12 +142,15 @@ cadastrarJogo = do
     else do 
         Jogo.salvarJogo novoJogo
         putStrLn("Jogo cadastrado com sucesso")
+    aguardar
     opcao
 
 
 -- Metódo que retorna um menu dos tipos de listagem de jogos possiveis. 
 listagemJogos:: IO()
 listagemJogos = do 
+    limparTela
+    aplicativo
     putStrLn ("\n1. Listar todos os jogos disponíveis\n" ++ 
         "2. Listar os últimos 5 jogos cadastrados\n" ++
         "3. Listar os jogos por categoria\n" ++
@@ -154,30 +174,36 @@ opcaoListagem = do
     if input == "1" then do
         putStrLn("Jogos disponíveis:\n")
         putStrLn (Listagem.listarJogos listaJogos)
+        aguardar
         listagemJogos
         
     else if input == "2" then do        
         putStrLn("Últimos 5 jogos:\n")
         putStrLn (Listagem.listarUltimosJogos listaJogos)
+        aguardar
         listagemJogos
     else if input == "3" then do
         putStrLn("Categoria que deseja ver: ")
         categoriaEscolhida <- getLine
         putStrLn (Listagem.listarJogosCategoria categoriaEscolhida listaJogos)
+        aguardar
         listagemJogos
 
     else if input == "4" then do
         putStrLn("Jogos por ano de lançamento:\n")
         putStrLn (Listagem.listarJogosPorAnoLancamento listaJogos)
+        aguardar
         listagemJogos
     else if input == "5" then do
         putStrLn("Jogos com as melhores avaliações:\n")
         putStrLn (Listagem.listaAvaliacoesOrdenada  listaJogos listaAvaliacoes)
+        aguardar
         listagemJogos
     else if input == "6" then do 
         opcao   
     else do
         putStrLn("Opção inválida")
+        aguardar
         opcao
 
 -- Método que retorna as listagens de avaliações de um determinado jogo. 
@@ -194,9 +220,11 @@ listarAvaliacoesJogo = do
     if Jogo.existeJogo jogo listaJogos then do
         putStrLn("")
         putStrLn(Listagem.listarAvaliacoesJogo jogo listaJogos listaAvaliacoes)
+        aguardar
         opcao
     else do 
         putStrLn("Jogo não cadastrado")
+        aguardar
         opcao
 
 -- Método que cadastra uma avaliação de um determinado jogo, capturando o nome do usuário que esta avaliando
@@ -229,12 +257,15 @@ avaliarJogo = do
             }
             Avaliacao.salvarAvaliacao novaAvaliacao
             putStrLn("Avaliação cadastrada com sucesso")
+            aguardar
             opcao
         else do 
             putStrLn("Usuario não cadastrado.")
+            aguardar
             opcao
     else do 
         putStrLn("Jogo não cadastrado.")
+        aguardar
         opcao
 
 -- Método que retorna as indicações para um determinado usuário.
@@ -251,5 +282,6 @@ pedirIndicacaoJogo = do
     putStrLn("\nInsira o nome do usuário:")
     nome <- getLine 
     putStrLn(Indicacao.pedirIndicacao nome listaAvaliacoes listaJogos listaUsuarios)
+    aguardar
     opcao
    

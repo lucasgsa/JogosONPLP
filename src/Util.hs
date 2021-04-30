@@ -1,5 +1,6 @@
 module Util where
     import Data.List.Split (splitOn)
+    import Data.Char (isLetter, toLower)
 
     color :: String -> Bool -> String -> String
     color "nocolor" _ _   = "\ESC[0m"
@@ -19,3 +20,6 @@ module Util where
     -- Retira o primeiro e último caractere de uma String, ou seja, para o caso de "[1,2,3]", retorna "1,2,3".
     retiraBracketsStringList :: String -> String
     retiraBracketsStringList linha = reverse(drop 1(reverse (drop 1 linha)))
+
+    toLowerString :: [Char] -> [Char]
+    toLowerString str = [ toLower x | x <- str]

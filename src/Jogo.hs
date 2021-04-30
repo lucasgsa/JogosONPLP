@@ -35,4 +35,5 @@ salvarJogo jogo = do
 
 existeJogo :: String -> [Jogo] -> Bool
 existeJogo _ [] = False
-existeJogo nomeJogo (x:xs) = (Jogo.nome x == nomeJogo) || existeJogo nomeJogo xs
+existeJogo nomeJogo (x:xs) = ( (Util.toLowerString (Jogo.nome x)) == (Util.toLowerString nomeJogo) )
+                             || existeJogo nomeJogo xs

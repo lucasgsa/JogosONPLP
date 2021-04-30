@@ -1,4 +1,5 @@
 module Usuario where 
+import Util
 
 data Usuario = Usuario {
   nickname:: String
@@ -13,5 +14,5 @@ salvarUsuario usuario = do
 
 existeUsuario :: String -> [Usuario] -> Bool
 existeUsuario _ [] = False
-existeUsuario nomeUsuario (x:xs) = (Usuario.nickname x == nomeUsuario) || existeUsuario nomeUsuario xs
+existeUsuario nomeUsuario (x:xs) = ((Util.toLowerString (Usuario.nickname x)) == (Util.toLowerString nomeUsuario)) || existeUsuario nomeUsuario xs
 

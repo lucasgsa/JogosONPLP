@@ -37,5 +37,6 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 - [X] 7. Deve ser possível listar os jogos com melhores avaliações;
 - [X] 8. Deve ser possível listar as avaliações de um jogo.
 - [X] 9. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
-- [X] 10. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
+- [X] 10. Deve ser possível listar as avaliações de um usuário.
+- [X] 11. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
 
