@@ -14,10 +14,13 @@ instance Show Avaliacao where
 
 -- / Retorna os jogos avaliados pelo usuário.
 avaliadosPor :: String -> [Avaliacao] -> [String]
-avaliadosPor _ [] = []
-avaliadosPor usuario (x:xs) = if (Util.toLowerString (Avaliacao.usuario x)) == (Util.toLowerString usuario)
-                              then (Avaliacao.jogo x) : (avaliadosPor usuario xs)
-                              else (avaliadosPor usuario xs)
+avaliadosPor usuario avaliacoes = [Avaliacao.jogo x | x <- avaliadosPorAux usuario avaliacoes]
+
+avaliadosPorAux :: String -> [Avaliacao] -> [Avaliacao]
+avaliadosPorAux _ [] = []
+avaliadosPorAux usuario (x:xs) = if (Util.toLowerString (Avaliacao.usuario x)) == (Util.toLowerString usuario)
+                              then x : (avaliadosPorAux usuario xs)
+                              else (avaliadosPorAux usuario xs)
 
 -- / Retorna a nota que foi dada por um usuário a um jogo.
 notaDada :: String -> String -> [Avaliacao] -> Double

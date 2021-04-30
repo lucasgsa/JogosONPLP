@@ -93,10 +93,11 @@ module Listagem where
                                                         then 
                                                             Util.color "yellow" False ("Nada foi avaliado ainda!")
                                                         else 
-                                                            listarAvaliacoesJogoAux nomeUser avaliacoes
-                                                    where avaliacoesUser = (avaliadosPor nomeUser avaliacoes)
+                                                            listarAvaliacoesUsuarioAux avaliacoesUser
+                                                    where avaliacoesUser = (avaliadosPorAux nomeUser avaliacoes)
 
     listarAvaliacoesUsuarioAux :: [Avaliacao] -> String
+    listarAvaliacoesUsuarioAux [] = ""
     listarAvaliacoesUsuarioAux (x:xs) = show (x) ++ "\n" 
                                         ++ listarAvaliacoesUsuarioAux xs
 
