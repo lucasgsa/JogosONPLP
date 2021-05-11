@@ -27,16 +27,46 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 * Biblioteca System.IO.Strict, caso não tenha, faça "cabal install strict" para instalar.
 
 ## Especificação / Casos de Uso:
+### 1. Deve ser possível cadastrar usuários (Um usuário deve possuir um nickname);
+* - [X] Haskell
+* - [ ] Prolog
 
-- [X] 1. Deve ser possível cadastrar usuários (Um usuário deve possuir um nickname);
-- [X] 2. Deve ser possível cadastrar jogos (Um jogo deve possuir nome, categoria(s) e requisitos mínimos para sua instalação);
-- [X] 3. Deve ser possível listar todos os jogos disponíveis;
-- [X] 4. Deve ser possível listar os 5 últimos jogos cadastrados no sistema;
-- [X] 5. Deve ser possível listar os jogos por categoria;
-- [X] 6. Deve ser possível listar os jogos por ordem de ano de Lançamento;
-- [X] 7. Deve ser possível listar os jogos com melhores avaliações;
-- [X] 8. Deve ser possível listar as avaliações de um jogo.
-- [X] 9. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
-- [X] 10. Deve ser possível listar as avaliações de um usuário.
-- [X] 11. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
+### 2. Deve ser possível cadastrar jogos (Um jogo deve possuir nome, categoria(s) e requisitos mínimos para sua instalação);
+* - [X] Haskell
+* - [ ] Prolog
 
+### 3. Deve ser possível listar todos os jogos disponíveis;
+* - [X] Haskell
+* - [ ] Prolog
+
+### 4. Deve ser possível listar os 5 últimos jogos cadastrados no sistema;
+* - [X] Haskell
+* - [ ] Prolog
+
+### 5. Deve ser possível listar os jogos por categoria;
+* - [X] Haskell
+* - [ ] Prolog
+
+### 6. Deve ser possível listar os jogos por ordem de ano de Lançamento;
+* - [X] Haskell
+* - [ ] Prolog
+
+### 7. Deve ser possível listar os jogos com melhores avaliações;
+* - [X] Haskell
+* - [ ] Prolog
+
+### 8. Deve ser possível listar as avaliações de um jogo.
+* - [X] Haskell
+* - [ ] Prolog
+
+### 9. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
+* - [X] Haskell
+* - [ ] Prolog
+
+### 10. Deve ser possível listar as avaliações de um usuário.
+* - [X] Haskell
+* - [ ] Prolog
+
+### 11. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
+* - [X] Haskell
+* - [ ] Prolog
