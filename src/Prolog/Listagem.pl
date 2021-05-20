@@ -1,8 +1,10 @@
+:- include('UtilColor.pl').
 :- include('UtilJogo.pl').
 :- include('Util.pl').
 
 % 3. Deve ser possível listar todos os jogos disponíveis;
-listarJogos([], "Nenhum Jogo Encontrado.").
+listarJogos([], Saida) :-
+    colorString("Nenhum Jogo Encontrado", "red", Saida).
 listarJogos(ListaJogos, StringSaida) :- listarJogosAux(ListaJogos, StringSaida).
 
 listarJogosAux([], StringSaida) :- StringSaida = "".
@@ -16,3 +18,19 @@ listarUltimosJogosCadastrados(ListaJogos, StringSaida) :-
     reverse(ListaJogos, ListaJogosInvertida),
     take(5, ListaJogosInvertida, UltimosJogos),
     listarJogos(UltimosJogos, StringSaida).
+
+% 5. Deve ser possível listar os jogos por categoria;
+listarJogosCategoria(CategoriaProcurada, ListaJogos, StringSaida) :-
+    filterCategorias(CategoriaProcurada, ListaJogos, JogosFiltrados),
+    listarJogos(JogosFiltrados, StringSaida).
+
+filterCategorias(_, [], []).
+filterCategorias(CategoriaProcurada, [X|XS], JogosSaida) :-
+    getCategoriasJogo(X, CategoriasJogo),
+    listContains(CategoriasJogo, CategoriaProcurada, ContemCategoria),
+    ContemCategoria =:= 1 -> 
+        filterCategorias(CategoriaProcurada, XS, SaidaProxima),
+        append([X], SaidaProxima, JogosSaida); 
+
+        filterCategorias(CategoriaProcurada, XS, SaidaProxima),
+        JogosSaida = SaidaProxima.

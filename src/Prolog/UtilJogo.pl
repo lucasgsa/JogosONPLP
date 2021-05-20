@@ -3,17 +3,26 @@ jogoToString(jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, Prec
     precoString(PrecoJogo, PrecoString),
     listToString(ReqMinimosJogo, ReqMinimosString),
     listToString(CategoriasJogo, CategoriasString),
+    colorString("Titulo: ", "red", ConcTituloString),
+    colorString("Plataforma: ", "white", ConcPlataformaString),
+    colorString("Requisitos minimos: ", "white", ConcReqMinimosString),
+    colorString("Generos: ", "white", ConcGenerosString),
+    colorString("Ano Lancamento: ", "white", ConcAnoLancamentoString),
+    colorString(TipoOnline, "yellow", ConcTipoOnline),
+    colorString("Preco: ", "red", ConcPrecoString),
     concatenate(
         [
-        "Titulo: ", NomeJogo, "\n",
-        "Plataforma: ", PlataformaJogo, "\n",
-        "Requisitos minimos: ", ReqMinimosString, "\n",
-        "Generos: ", CategoriasString, "\n",
-        "Ano Lancamento: ", AnoLancamentoJogo, "\n",
-        TipoOnline, "\n",
-        "Preco: ",  PrecoString, "\n\n"
+        ConcTituloString, NomeJogo, "\n",
+        ConcPlataformaString, PlataformaJogo, "\n",
+        ConcReqMinimosString, ReqMinimosString, "\n",
+        ConcGenerosString, CategoriasString, "\n",
+        ConcAnoLancamentoString, AnoLancamentoJogo, "\n",
+        ConcTipoOnline, "\n",
+        ConcPrecoString,  PrecoString, "\n\n"
         ]
         , StringSaida).
+
+getCategoriasJogo(jogo(_,X,_,_,_,_,_), X).
 
 tipoIsOnline(0, "Um Jogador").
 tipoIsOnline(1, "Cooperativo online").
