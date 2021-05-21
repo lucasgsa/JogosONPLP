@@ -8,21 +8,25 @@ avaliacaoToString(avaliacao(UsuarioNome, JogoNome, Nota, Comentario), StringSaid
         ConcComentario, Comentario, "\n\n"
         ], StringSaida).
 
+getJogoNomeAvaliacao(avaliacao(_,X,_,_), X).
+getUsuarioNomeAvaliacao(avaliacao(X,_,_,_), X).
+getNotaAvaliacao(avaliacao(_,_,X,_), X).
+
 mediaAvaliacoesJogo(NomeJogoProcurado, ListaAvaliacoes, MediaSaida) :-
     filterAvaliacoesJogo(NomeJogoProcurado, ListaAvaliacoes, Avaliacoes),
     somaAvaliacoes(Avaliacoes, SomaAvaliacoes),
     length(Avaliacoes, QtdAvaliacoes),
-    MediaSaida is SomaAvaliacoes/QtdAvaliacoes.
+    calculaMedia(SomaAvaliacoes, QtdAvaliacoes, MediaSaida).
+
+calculaMedia(Soma, Qtd, Saida) :- 
+    Qtd*1.0 =:= 0.0 -> Saida = 0;
+    Saida is Soma/Qtd.
 
 somaAvaliacoes([], 0).
 somaAvaliacoes([X|XS], SomaSaida) :-
     somaAvaliacoes(XS, SomaProx),
     getNotaAvaliacao(X, NotaAvaliacaoAtual),
     SomaSaida is NotaAvaliacaoAtual + SomaProx.
-
-getJogoNomeAvaliacao(avaliacao(_,X,_,_), X).
-getUsuarioNomeAvaliacao(avaliacao(X,_,_,_), X).
-getNotaAvaliacao(avaliacao(_,_,X,_), X).
 
 filterAvaliacoesJogo(_, [], []).
 filterAvaliacoesJogo(NomeJogoProcurado, [X|XS], AvaliacoesSaida) :-
@@ -34,3 +38,14 @@ filterAvaliacoesJogo(NomeJogoProcurado, [X|XS], AvaliacoesSaida) :-
         append([X], SaidaProx, AvaliacoesSaida);
 
         filterAvaliacoesJogo(NomeJogoProcurado, XS, AvaliacoesSaida).
+
+filterAvaliacoesPorUsuario(_, [], []).
+filterAvaliacoesPorUsuario(NomeUsuarioProcurado, [X|XS], AvaliacoesSaida) :-
+    getUsuarioNomeAvaliacao(X, NomeUsuarioAtual),
+    string_lower(NomeUsuarioProcurado, NomeUsuarioProcuradoLowerCase),
+    string_lower(NomeUsuarioAtual, NomeUsuarioAtualLowerCase),
+    NomeUsuarioAtualLowerCase = NomeUsuarioProcuradoLowerCase ->
+        filterAvaliacoesPorUsuario(NomeUsuarioProcurado, XS, SaidaProx),
+        append([X], SaidaProx, AvaliacoesSaida);
+
+        filterAvaliacoesPorUsuario(NomeUsuarioProcurado, XS, AvaliacoesSaida).

@@ -28,9 +28,15 @@ listarJogosCategoria(CategoriaProcurada, ListaJogos, StringSaida) :-
 
 % 6. Deve ser possível listar os jogos em ordem de lançamento.
 listarJogosOrdemLancamento(ListaJogos, StringSaida) :-
-    insert_sort(1, ListaJogos, ListaOrdenada),
+    ordem_lancamento_insert_sort(ListaJogos, ListaOrdenada),
     reverse(ListaOrdenada, ListaOrdenadaInvertida),
     listarJogos(ListaOrdenadaInvertida, StringSaida).
+
+% 7. Deve ser possível listar os jogos com melhores avaliações;
+listarJogoOrdemAvaliacoes(ListaJogos, ListaAvaliacoes, StringSaida) :-
+   ordem_avaliacoes_insert_sort(ListaAvaliacoes, ListaJogos, ListaOrdenada),
+   reverse(ListaOrdenada, ListaOrdenadaInvertida),
+   listarJogos(ListaOrdenadaInvertida, StringSaida).
 
 % 8. Deve ser possível listar as avaliações de um jogo. 
 listarAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, ListaJogos, StringSaida) :-
@@ -53,7 +59,7 @@ listarAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, ListaJogos, StringSaida
         StringSaida = "Jogo nao encontrado.".
 
 listarAvaliacoes([], StringSaida) :-
-    colorString("Nenhuma avaliacao encontrada para esse jogo.", "red", StringSaida).
+    colorString("Nenhuma avaliacao encontrada.", "red", StringSaida).
 listarAvaliacoes(ListaAvaliacoes, StringSaida) :-
     listarAvaliacoesAux(ListaAvaliacoes, StringSaida).
 
@@ -62,3 +68,9 @@ listarAvaliacoesAux([X|XS], StringSaida) :-
     avaliacaoToString(X, AvaliacaoString),
     listarAvaliacoesAux(XS, ResultProx),
     atom_concat(AvaliacaoString, ResultProx, StringSaida).
+
+% 10. Deve ser possível listar as avaliações de um usuário.
+listarAvaliacoesUsuario(UsuarioNomeProcurado, ListaAvaliacoes, StringSaida) :-
+    % TO-DO Checar se o usuario existe.
+    filterAvaliacoesPorUsuario(UsuarioNomeProcurado, ListaAvaliacoes, Avaliacoes),
+    listarAvaliacoes(Avaliacoes, StringSaida).
