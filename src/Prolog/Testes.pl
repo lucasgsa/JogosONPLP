@@ -10,5 +10,5 @@ jogo("cTerraria", ["Aventuraa"], ["I5"], "PC", 0.0, 1, 2007)
 
 main :-
     jogos(ListaJogos),
-    listarJogosOrdemLancamento(ListaJogos, SaidaString),
+    listarJogosCategoria("abAcaTes", ListaJogos, SaidaString),
     writeln(SaidaString).

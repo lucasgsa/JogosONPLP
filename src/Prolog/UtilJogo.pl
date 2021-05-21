@@ -22,6 +22,17 @@ jogoToString(jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, Prec
         ]
         , StringSaida).
 
+existeJogo([],_, 0).
+existeJogo([X|XS], JogoProcurado, Resposta) :-
+    getNomeJogo(X, NomeJogoAtual),
+    getNomeJogo(JogoProcurado, NomeJogoProcurado),
+    string_lower(NomeJogoAtual, NomeJogoAtualLowerCase),
+    string_lower(NomeJogoProcurado, NomeJogoProcuradoLowerCase),
+    NomeJogoAtualLowerCase = NomeJogoProcuradoLowerCase -> 
+        Resposta = 1; 
+        existeJogo(XS, JogoProcurado, Resposta).
+
+getNomeJogo(jogo(X,_,_,_,_,_,_), X).
 getCategoriasJogo(jogo(_,X,_,_,_,_,_), X).
 getAnoLancamentoJogo(jogo(_,_,_,_,_,_,X), X).
 

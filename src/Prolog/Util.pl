@@ -6,7 +6,9 @@ listToString([X|XS], StringSaida) :-
 
 listContains([],_, 0).
 listContains([X|XS], Procurado, Result) :-
-    Procurado = X -> Result = 1; 
+    string_lower(Procurado, ProcuradoLowerCase),
+    string_lower(X, XLowerCase),
+    ProcuradoLowerCase = XLowerCase -> Result = 1; 
         listContains(XS, Procurado, Result).
 
 concatenate(StringList, StringResult) :-
