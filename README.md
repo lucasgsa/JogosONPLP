@@ -37,27 +37,27 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 
 ### 3. Deve ser possível listar todos os jogos disponíveis;
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 4. Deve ser possível listar os 5 últimos jogos cadastrados no sistema;
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 5. Deve ser possível listar os jogos por categoria;
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 6. Deve ser possível listar os jogos por ordem de ano de Lançamento;
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 7. Deve ser possível listar os jogos com melhores avaliações;
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 8. Deve ser possível listar as avaliações de um jogo.
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 9. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
 * - [X] Haskell
@@ -65,7 +65,7 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 
 ### 10. Deve ser possível listar as avaliações de um usuário.
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 11. Um usuário poderá pedir uma indicação de um jogo (A partir das avaliações do usuário).
 * - [X] Haskell
