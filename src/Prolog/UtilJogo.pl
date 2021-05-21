@@ -32,19 +32,3 @@ tipoIsOnline(_, "IsOnline nao informado corretamente.").
 precoString(X, Y) :-
     X*1.0 =:= 0.0 -> Y = "Gratis";
     atom_concat("R$ ", X, Y).
-
-ano_lancamento_insert_sort(List,Sorted):-
-    ano_lancamento_i_sort(List,[],Sorted).
-ano_lancamento_i_sort([],Acc,Acc).
-ano_lancamento_i_sort([H|T],Acc,Sorted):-
-    ano_lancamento_insert(H,Acc,NAcc),ano_lancamento_i_sort(T,NAcc,Sorted).
-   
-ano_lancamento_insert(X,[Y|T],[Y|NT]) :-
-    getAnoLancamentoJogo(X, AnoX),
-    getAnoLancamentoJogo(Y, AnoY),
-    AnoX>AnoY,ano_lancamento_insert(X,T,NT).
-ano_lancamento_insert(X,[Y|T],[X,Y|T]) :-
-    getAnoLancamentoJogo(X, AnoX),
-    getAnoLancamentoJogo(Y, AnoY),
-    AnoX=<AnoY.
-ano_lancamento_insert(X,[],[X]).

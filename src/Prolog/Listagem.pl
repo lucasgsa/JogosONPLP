@@ -1,3 +1,4 @@
+:- include('UtilOrdenacoes.pl').
 :- include('UtilColor.pl').
 :- include('UtilJogo.pl').
 :- include('Util.pl').
@@ -37,6 +38,6 @@ filterCategorias(CategoriaProcurada, [X|XS], JogosSaida) :-
 
 % 6. Deve ser possível listar os jogos em ordem de lançamento.
 listarJogosOrdemLancamento(ListaJogos, StringSaida) :-
-    ano_lancamento_insert_sort(ListaJogos, ListaOrdenada),
+    insert_sort(1, ListaJogos, ListaOrdenada),
     reverse(ListaOrdenada, ListaOrdenadaInvertida),
     listarJogos(ListaOrdenadaInvertida, StringSaida).
