@@ -34,3 +34,9 @@ filterCategorias(CategoriaProcurada, [X|XS], JogosSaida) :-
 
         filterCategorias(CategoriaProcurada, XS, SaidaProxima),
         JogosSaida = SaidaProxima.
+
+% 6. Deve ser possível listar os jogos em ordem de lançamento.
+listarJogosOrdemLancamento(ListaJogos, StringSaida) :-
+    ano_lancamento_insert_sort(ListaJogos, ListaOrdenada),
+    reverse(ListaOrdenada, ListaOrdenadaInvertida),
+    listarJogos(ListaOrdenadaInvertida, StringSaida).
