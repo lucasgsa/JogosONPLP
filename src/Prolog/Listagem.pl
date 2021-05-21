@@ -1,14 +1,15 @@
+:- include('UtilAvaliacao.pl').
 :- include('UtilOrdenacoes.pl').
 :- include('UtilColor.pl').
 :- include('UtilJogo.pl').
 :- include('Util.pl').
 
 % 3. Deve ser possível listar todos os jogos disponíveis;
-listarJogos([], Saida) :-
-    colorString("Nenhum Jogo Encontrado", "red", Saida).
+listarJogos([], StringSaida) :-
+    colorString("Nenhum Jogo Encontrado", "red", StringSaida).
 listarJogos(ListaJogos, StringSaida) :- listarJogosAux(ListaJogos, StringSaida).
 
-listarJogosAux([], StringSaida) :- StringSaida = "".
+listarJogosAux([], "").
 listarJogosAux([X|XS], StringSaida) :- 
     jogoToString(X, JogoString), 
     listarJogosAux(XS, ResultProx),
@@ -25,19 +26,28 @@ listarJogosCategoria(CategoriaProcurada, ListaJogos, StringSaida) :-
     filterCategorias(CategoriaProcurada, ListaJogos, JogosFiltrados),
     listarJogos(JogosFiltrados, StringSaida).
 
-filterCategorias(_, [], []).
-filterCategorias(CategoriaProcurada, [X|XS], JogosSaida) :-
-    getCategoriasJogo(X, CategoriasJogo),
-    listContains(CategoriasJogo, CategoriaProcurada, ContemCategoria),
-    ContemCategoria =:= 1 -> 
-        filterCategorias(CategoriaProcurada, XS, SaidaProxima),
-        append([X], SaidaProxima, JogosSaida); 
-
-        filterCategorias(CategoriaProcurada, XS, SaidaProxima),
-        JogosSaida = SaidaProxima.
-
 % 6. Deve ser possível listar os jogos em ordem de lançamento.
 listarJogosOrdemLancamento(ListaJogos, StringSaida) :-
     insert_sort(1, ListaJogos, ListaOrdenada),
     reverse(ListaOrdenada, ListaOrdenadaInvertida),
     listarJogos(ListaOrdenadaInvertida, StringSaida).
+
+% 8. Deve ser possível listar as avaliações de um jogo. 
+listarAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, ListaJogos, StringSaida) :-
+    existeJogo(JogoNomeProcurado, ListaJogos, ExisteJogo),
+    ExisteJogo =:= 1 -> 
+        filterAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, Avaliacoes),
+        listarAvaliacoes(Avaliacoes, StringSaida);
+        
+        StringSaida = "Jogo nao encontrado.".
+
+listarAvaliacoes([], StringSaida) :-
+    colorString("Nenhuma avaliacao encontrada para esse jogo.", "red", StringSaida).
+listarAvaliacoes(ListaAvaliacoes, StringSaida) :-
+    listarAvaliacoesAux(ListaAvaliacoes, StringSaida).
+
+listarAvaliacoesAux([], "").
+listarAvaliacoesAux([X|XS], StringSaida) :-
+    avaliacaoToString(X, AvaliacaoString),
+    listarAvaliacoesAux(XS, ResultProx),
+    atom_concat(AvaliacaoString, ResultProx, StringSaida).
