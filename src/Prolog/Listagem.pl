@@ -37,7 +37,18 @@ listarAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, ListaJogos, StringSaida
     existeJogo(JogoNomeProcurado, ListaJogos, ExisteJogo),
     ExisteJogo =:= 1 -> 
         filterAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, Avaliacoes),
-        listarAvaliacoes(Avaliacoes, StringSaida);
+        mediaAvaliacoesJogo(JogoNomeProcurado, ListaAvaliacoes, MediaJogo),
+        listarAvaliacoes(Avaliacoes, AvaliacoesSaida),
+        format(atom(MediaJogoFormatada), "~2f", [MediaJogo]),
+        colorString(MediaJogoFormatada, "blue", MediaJogoFormatadaColor),
+
+        concatenate(["Media de ", JogoNomeProcurado, ": "], MediaDeString),
+        colorString(MediaDeString, "green", MediaDeStringColor),
+
+        concatenate([
+            MediaDeStringColor, MediaJogoFormatadaColor, "\n\n",
+            AvaliacoesSaida
+            ], StringSaida);
         
         StringSaida = "Jogo nao encontrado.".
 

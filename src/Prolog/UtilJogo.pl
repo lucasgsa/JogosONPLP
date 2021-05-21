@@ -32,7 +32,8 @@ tipoIsOnline(_, "IsOnline nao informado corretamente.").
 
 precoString(X, Y) :-
     X*1.0 =:= 0.0 -> Y = "Gratis";
-    atom_concat("R$ ", X, Y).
+    format(atom(PrecoFormatado), "~2f", [X]),
+    atom_concat("R$ ", PrecoFormatado, Y).
 
 existeJogo(_,[], 0).
 existeJogo(NomeJogoProcurado, [X|XS], Resposta) :-
