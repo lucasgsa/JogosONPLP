@@ -1,7 +1,7 @@
 :- include('Listagem.pl').
 
 jogos(ListaJogos) :- ListaJogos = [
-    jogo("gTerraria", ["Aventuraa"], ["I5"], "PC", 0.0, 1, 2009),
+    jogo("gTerraria", ["Aventuraa", "Abacates"], ["I5"], "PC", 0.0, 1, 2009),
     jogo("fTerraria", ["Aventuraa"], ["I5"], "PC", 0.0, 1, 2009)
 ].
 

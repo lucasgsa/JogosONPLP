@@ -4,21 +4,21 @@ jogoToString(jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, Prec
     listToString(ReqMinimosJogo, ReqMinimosString),
     listToString(CategoriasJogo, CategoriasString),
     colorString("Titulo: ", "red", ConcTituloString),
-    colorString("Plataforma: ", "white", ConcPlataformaString),
-    colorString("Requisitos minimos: ", "white", ConcReqMinimosString),
-    colorString("Generos: ", "white", ConcGenerosString),
-    colorString("Ano Lancamento: ", "white", ConcAnoLancamentoString),
+    colorString("Plataforma: ", "green", ConcPlataformaString),
+    colorString("Requisitos minimos: ", "green", ConcReqMinimosString),
+    colorString("Generos: ", "green", ConcGenerosString),
+    colorString("Ano Lancamento: ", "green", ConcAnoLancamentoString),
     colorString(TipoOnline, "yellow", ConcTipoOnline),
     colorString("Preco: ", "red", ConcPrecoString),
     concatenate(
         [
         ConcTituloString, NomeJogo, "\n",
-        ConcPlataformaString, PlataformaJogo, "\n",
-        ConcReqMinimosString, ReqMinimosString, "\n",
-        ConcGenerosString, CategoriasString, "\n",
-        ConcAnoLancamentoString, AnoLancamentoJogo, "\n",
-        ConcTipoOnline, "\n",
-        ConcPrecoString,  PrecoString, "\n\n"
+        "   ", ConcPlataformaString, PlataformaJogo, "\n",
+        "   ", ConcReqMinimosString, ReqMinimosString, "\n",
+        "   ", ConcGenerosString, CategoriasString, "\n",
+        "   ", ConcAnoLancamentoString, AnoLancamentoJogo, "\n",
+        "   ", ConcTipoOnline, "\n",
+        "   ", ConcPrecoString,  PrecoString, "\n\n"
         ]
         , StringSaida).
 
