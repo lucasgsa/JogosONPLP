@@ -1,4 +1,6 @@
+:- include('Util.pl').
 :- include('Listagem.pl').
+:- include('CarregaArquivos.pl').
 
 jogos(ListaJogos) :- ListaJogos = [
     jogo("gTerraria", ["Aventura", "Abacates"], ["I5"], "PC", 0.0, 1, 2010),
@@ -8,15 +10,11 @@ jogos(ListaJogos) :- ListaJogos = [
     jogo("cTerraria", ["Aventura", "Mundo aberto"], ["I5"], "PC", 0.0, 1, 2007)
 ].
 
-avaliacoes(ListaAvaliacoes) :- ListaAvaliacoes = [
-    avaliacao("Lucas", "gTerraria", 8.2, "Achei bom"),
-    avaliacao("Renan", "gTerraria", 8.1, "Meio bla"),
-    avaliacao("Lucas", "cTerraria", 10, "Achei muito bom")
-].
-
 main :-
-    jogos(ListaJogos),
-    avaliacoes(ListaAvaliacoes),
+    listaJogos("dados/jogos.txt", ListaJogos),
+    listaAvaliacoes("dados/avaliacoes.txt", ListaAvaliacoes),
+    listaUsuarios("dados/usuarios.txt", ListaUsuarios),
+    
 
     %3
     %listarJogos(ListaJogos, SaidaString),
@@ -37,6 +35,6 @@ main :-
     %listarAvaliacoesJogo("gterraria", ListaAvaliacoes, ListaJogos, SaidaString),
 
     %10
-    listarAvaliacoesUsuario("renan", ListaAvaliacoes, SaidaString),
+    %listarAvaliacoesUsuario("renan", ListaUsuarios, ListaAvaliacoes, SaidaString),
 
     writeln(SaidaString).

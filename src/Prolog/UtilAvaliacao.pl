@@ -8,6 +8,8 @@ avaliacaoToString(avaliacao(UsuarioNome, JogoNome, Nota, Comentario), StringSaid
         ConcComentario, Comentario, "\n\n"
         ], StringSaida).
 
+construirAvaliacao(Nome, Jogo, Nota, Comentario, avaliacao(Nome, Jogo, Nota, Comentario)).
+
 getJogoNomeAvaliacao(avaliacao(_,X,_,_), X).
 getUsuarioNomeAvaliacao(avaliacao(X,_,_,_), X).
 getNotaAvaliacao(avaliacao(_,_,X,_), X).

@@ -1,0 +1,13 @@
+League of Legends|moba_competitivo_habilidades|Processador de 3GHz_2GB_Placa de video compativel com Shader versao 2.0b.|PC|0.0|1|2009
+Dota 2|moba_competitivo_habilidades|Dual core da Intel ou AMD com 2.8 GHz_4GB_nVidia GeForce 8600/9600GT ou ATI/AMD Radeon HD2600/3600|PC|0.0|1|2013
+Counter-Strike: Global Offensive|fps_competitivo|Intel Core 2 Duo E6600_2GB_256 MB com Pixel Shader 3.0.|PC|0.0|1|2012
+Fortnite|battleroyale|[Core i3-3225 3.3 GHz._4GB_Intel HD 4000 no PC ou Intel Iris Pro 5200|PC/CONSOLE/MOBILE|0.0|1|2017
+Terraria|mundo aberto,aventura|Dual core 3.0_4GB_256mb Memoria de video|PC/MOBILE|19.99|1|2011
+Fifa 21|esporte,competitivo|Windows 10_i3-6100 ou athlon x4 880k_8GB_Randeon HD 7850 ou GTX 660]|[PC/CONSOLE/MOBILE|199.00|0|2020
+Grand Theft Auto V|mundo aberto_aventura_historia_acao|Windows7_Processador Quad-Core_4GB_1GB memoria de video|[PC/CONSOLE]|99.99|1|2013
+PlayerUnknown's Battlegrounds|battleroyale|Windows 7,i5 4430 ou FX 6300,8GB,GTX 960 ou R7 370|[PC/CONSOLE]|75.00|1|2017
+Rocket League|esporte_competitivo|Windows 7_Processador Dual-Core_4GB_GTX 760 ou R7 270X|[PC/CONSOLE]|0.0|1|2015
+ARK: Survival Evolved|aventura_acao|Windows 7_i5-2400 ou FX-8320_8GB_GTX 670 2GB ou HD 7870|[PC/CONSOLE]|93.99|1|2015
+Valorant|fps_habilidades_competitivo|Intel i3 4150_4GB_GeForce GT 730|PC|0.0|1|2020
+Among Us|sobrevivencia|Windows 7_1GB|[PC/CONSOLE/MOBILE]|10.89|1|2018
+PointBlank|fps_rpg|processador 110x_Windows 10|PC|20.0|1|2014
