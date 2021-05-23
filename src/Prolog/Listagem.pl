@@ -1,9 +1,3 @@
-:- include('UtilAvaliacao.pl').
-:- include('UtilOrdenacoes.pl').
-:- include('UtilColor.pl').
-:- include('UtilJogo.pl').
-:- include('Util.pl').
-
 % 3. Deve ser possível listar todos os jogos disponíveis;
 listarJogos([], StringSaida) :-
     colorString("Nenhum Jogo Encontrado", "red", StringSaida).
@@ -70,7 +64,13 @@ listarAvaliacoesAux([X|XS], StringSaida) :-
     atom_concat(AvaliacaoString, ResultProx, StringSaida).
 
 % 10. Deve ser possível listar as avaliações de um usuário.
-listarAvaliacoesUsuario(UsuarioNomeProcurado, ListaAvaliacoes, StringSaida) :-
-    % TO-DO Checar se o usuario existe.
+listarAvaliacoesUsuario(UsuarioNomeProcurado, ListaUsuarios, ListaAvaliacoes, StringSaida) :-
+    existeUsuario(UsuarioNomeProcurado, ListaUsuarios, ExisteUsuario),
+    ExisteUsuario =:= 0 -> 
+        StringSaida = "Usuario inexistente.";
+
+        listarAvaliacoesUsuarioAux(UsuarioNomeProcurado, ListaAvaliacoes, StringSaida).
+    
+listarAvaliacoesUsuarioAux(UsuarioNomeProcurado, ListaAvaliacoes, StringSaida) :-
     filterAvaliacoesPorUsuario(UsuarioNomeProcurado, ListaAvaliacoes, Avaliacoes),
     listarAvaliacoes(Avaliacoes, StringSaida).

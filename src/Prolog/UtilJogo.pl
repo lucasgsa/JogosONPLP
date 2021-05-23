@@ -22,6 +22,8 @@ jogoToString(jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, Prec
         ]
         , StringSaida).
 
+contruirJogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, PrecoJogo, IsOnlineJogo, AnoLancamentoJogo, jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, PrecoJogo, IsOnlineJogo, AnoLancamentoJogo)).
+
 getNomeJogo(jogo(X,_,_,_,_,_,_), X).
 getCategoriasJogo(jogo(_,X,_,_,_,_,_), X).
 getAnoLancamentoJogo(jogo(_,_,_,_,_,_,X), X).
