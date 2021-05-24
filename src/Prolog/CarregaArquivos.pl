@@ -4,8 +4,7 @@ listaAvaliacoes(Path, ListaAvaliacoes) :-
 
 processarListaBrutaAvaliacoes([], []).
 processarListaBrutaAvaliacoes([Atual|XS], ListaAvaliacoes) :-
-    concatenate(Atual, AtualBruto),
-    split_string(AtualBruto, "|", " | ", AtualDividido),
+    split_string(Atual, "|", " | ", AtualDividido),
     nth0(0, AtualDividido, Nome),
     nth0(1, AtualDividido, Jogo),
     nth0(2, AtualDividido, NotaBruta),
@@ -28,22 +27,22 @@ listaJogos(Path, ListaJogos) :-
 
 processarListaBrutaJogos([], []).
 processarListaBrutaJogos([Atual|XS], ListaJogos) :-
-    concatenate(Atual, AtualBruto),
-    split_string(AtualBruto, "|", " | ", AtualDividido),
+    split_string(Atual, "|", " | ", AtualDividido),
 
     nth0(0, AtualDividido, Nome),
     
     nth0(1, AtualDividido, CategoriasBruto),
-    split_string(CategoriasBruto, "_", " _ ", Categorias),
+    split_string(CategoriasBruto, ",", ", ", Categorias),
+    writeln(Categorias),
 
     nth0(2, AtualDividido, ReqMinimosBruto),
-    split_string(ReqMinimosBruto, "_", " _ ", ReqMinimos),
+    split_string(ReqMinimosBruto, ",", ", ", ReqMinimos),
 
     nth0(3, AtualDividido, Plataforma),
     
     nth0(4, AtualDividido, PrecoBruto),
     atom_number(PrecoBruto, Preco),
-    
+
     nth0(5, AtualDividido, IsOnlineBruto),
     atom_number(IsOnlineBruto, IsOnline),
 
@@ -66,8 +65,7 @@ listaUsuarios(Path, ListaUsuarios) :-
 
 processarListaBrutaUsuarios([], []).
 processarListaBrutaUsuarios([Atual|XS], ListaUsuarios) :-
-    concatenate(Atual, AtualNome),
-    construirUsuario(AtualNome, UsuarioAtual),
+    construirUsuario(Atual, UsuarioAtual),
     processarListaBrutaUsuarios(XS, ListaProx),
     append([UsuarioAtual], ListaProx, ListaUsuarios).
 
