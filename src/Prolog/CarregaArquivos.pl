@@ -33,7 +33,6 @@ processarListaBrutaJogos([Atual|XS], ListaJogos) :-
     
     nth0(1, AtualDividido, CategoriasBruto),
     split_string(CategoriasBruto, ",", ", ", Categorias),
-    writeln(Categorias),
 
     nth0(2, AtualDividido, ReqMinimosBruto),
     split_string(ReqMinimosBruto, ",", ", ", ReqMinimos),
