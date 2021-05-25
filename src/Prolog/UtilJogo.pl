@@ -56,3 +56,26 @@ filterCategorias(CategoriaProcurada, [X|XS], JogosSaida) :-
 
         filterCategorias(CategoriaProcurada, XS, SaidaProxima),
         JogosSaida = SaidaProxima.
+
+
+formatarJogo(jogo(NomeJogo, CategoriasJogo, ReqMinimosJogo, PlataformaJogo, PrecoJogo, IsOnlineJogo, AnoLancamentoJogo), Result) :-
+    string_concat(NomeJogo, "|", Parte1), 
+    string_concat(Parte1, CategoriasJogo, Parte2),
+    string_concat(Parte2, "|", Parte3),
+    string_concat(Parte3, ReqMinimosJogo, Parte4),
+    string_concat(Parte4, "|", Parte5), 
+    string_concat(Parte5, PlataformaJogo, Parte6),
+    string_concat(Parte6, "|", Parte7),
+    string_concat(Parte7, PrecoJogo, Parte8),
+    string_concat(Parte8, "|", Parte9),
+    string_concat(Parte9, IsOnlineJogo, Parte10),
+    string_concat(Parte10, "|", Parte11),
+    string_concat(Parte11, AnoLancamentoJogo, Parte12),
+    string_concat(Parte12, "\n", Result).
+
+
+salvarJogo(NovoJogo):-
+    open('dados/jogos.txt',append,Stream),
+    formatarJogo(NovoJogo, JogoFormatado),
+    write(Stream,JogoFormatado),
+    close(Stream).

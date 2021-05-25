@@ -22,9 +22,8 @@ menu:-
     write("3. Listar Jogos"),nl,
     write("4. Listar as avali1ações de um Jogo"),nl,
     write("5. Avaliar um Jogo"),nl,
-    write("6. Pedir Indicação de um Jogo"),nl,
-    write("7. Mostrar avaliações de um usuário"),nl,
-    write("8. Sair"),nl,
+    write("6. Mostrar avaliações de um usuário"),nl,
+    write("7. Sair"),nl,
     write(""),
     lerNumero(Input),
     opcao(Input).
@@ -52,12 +51,9 @@ opcao(5):-
     avaliarJogo.
 
 opcao(6):- 
-    pedirIndicacao.
-
-opcao(7):- 
     listarAvaliacoesUsuario.
 
-opcao(8):- 
+opcao(7):- 
     writeln("Programa Finalizado...").
 
 opcao(N):-
@@ -76,7 +72,8 @@ cadastrarUsuario:-
     writeln("Insira o nome do Usuário: "),
     lerString(Nome),
     construirUsuario(Nome, Usuario),
-    /*existeUsuario(Usuario, ListaUsuarios, Retorno) Retorno =:= 0 -> writeln("Usuário já existente"); salvarUsuario(Usuario), */
+    existeUsuario(Usuario, ListaUsuarios, Retorno) Retorno =:= 0 -> writeln("Usuário já existente"); salvarUsuario(Usuario),
+    writeln("Usuario cadastrado"),
     pressToContinue.
 
 
@@ -103,7 +100,7 @@ cadastrarJogo:-
     writeln("Qual o ano de lançamento"),
     lerNumero(Ano),
     contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnline, Ano, Jogo),
-    /*existeJogo(Jogo, ListaJogos, Retorno) Retorno =:= 0 -> writeln("Jogo já existente"); salvarJogo(Jogo),*/
+    existeJogo(Jogo, ListaJogos, Retorno) Retorno =:= 0 -> writeln("Jogo já existente"); salvarJogo(Jogo),
     writeln("Jogo cadastrado com sucesso"),
     pressToContinue.
     
@@ -209,20 +206,9 @@ avaliarJogo:-
     writeln("Insira um comentário: "),
     lerString(Comentario),
     construirAvaliacao(NomeUsuario, NomeJogo, Nota, Comentario, Avaliacao),
-    /*salvarAvaliacao(Avaliacao)*/
+    salvarAvaliacao(Avaliacao),
     writeln("Avaliação cadastrada com sucesso"),
     pressToContinue.
-
-
-
-
-/*------------ PEDIR INDICAÇÃO DE UM JOGO -----------*/
-
-pedirIndicacao:-
-    writeln("Insira o nome do Usuário: "),
-    lerString(Nome),
-    pressToContinue.
-
 
 
 /*------  LISTAGEM DE AVALIAÇÃO DE UM USUARIO -------*/
