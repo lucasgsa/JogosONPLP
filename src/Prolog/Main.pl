@@ -72,13 +72,13 @@ cadastrarUsuario:-
     lerString(Nome),
     construirUsuario(Nome, Usuario),
     existeUsuario(Nome, ListaUsuarios, Resposta),
-    cadastraUser(Usuario, Resposta).
+    cadastrarUsuarioAux(Usuario, Resposta).
 
-cadastraUser(_, 1) :-
+cadastrarUsuarioAux(_, 1) :-
     writeln("Usuario já existente!"),
     pressToContinue.
 
-cadastraUser(Usuario, 0) :-
+cadastrarUsuarioAux(Usuario, 0) :-
     salvarUsuario(Usuario),
     writeln("Usuario cadastrado com sucesso!"),
     pressToContinue.
@@ -87,10 +87,8 @@ cadastraUser(Usuario, 0) :-
 /*-----------------CADASTRO DE JOGO ------------------*/
 
 cadastrarJogo:- 
-
-    listaJogos("dados/jogos.txt", ListaJogos),
-
     tty_clear,
+    listaJogos("dados/jogos.txt", ListaJogos),
     writeln("Cadastrar um Jogo:"),
     writeln("Insira o nome do Jogo:"),
     lerString(NomeJogo),
@@ -108,8 +106,18 @@ cadastrarJogo:-
     writeln("Qual o ano de lançamento"),
     lerNumero(Ano),
     contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnlineResponse, Ano, Jogo),
+    existeJogo(NomeJogo, ListaJogos, Resposta),
+    cadastrarJogoAux(Jogo, Resposta),
+    writeln("Jogo cadastrado com sucesso"),
+    pressToContinue.
+
+cadastrarJogoAux(Jogo, 0) :-
     salvarJogo(Jogo),
     writeln("Jogo cadastrado com sucesso"),
+    pressToContinue.
+
+cadastrarJogoAux(_, 1) :-
+    writeln("Jogo já está cadastrado."),
     pressToContinue.
 
 processarIsOnline("s", 1).
