@@ -72,7 +72,7 @@ cadastrarUsuario:-
     writeln("Insira o nome do Usuário: "),
     lerString(Nome),
     construirUsuario(Nome, Usuario),
-    existeUsuario(Usuario, ListaUsuarios, Retorno) Retorno =:= 0 -> writeln("Usuário já existente"); salvarUsuario(Usuario),
+    existeUsuario(Nome, ListaUsuarios, Retorno), Retorno =:= 0 -> writeln("Usuário já existente"); salvarUsuario(Usuario),
     writeln("Usuario cadastrado"),
     pressToContinue.
 
@@ -100,7 +100,7 @@ cadastrarJogo:-
     writeln("Qual o ano de lançamento"),
     lerNumero(Ano),
     contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnline, Ano, Jogo),
-    existeJogo(Jogo, ListaJogos, Retorno) Retorno =:= 0 -> writeln("Jogo já existente"); salvarJogo(Jogo),
+    existeJogo(NomeJogo, ListaJogos, Retorno), Retorno =:= 0 -> writeln("Jogo já existente"); salvarJogo(Jogo),
     writeln("Jogo cadastrado com sucesso"),
     pressToContinue.
     
