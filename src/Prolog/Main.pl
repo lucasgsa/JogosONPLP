@@ -65,15 +65,22 @@ opcao(N):-
 /*---------------- CADASTRO DE USUARIO --------------------*/
 
 cadastrarUsuario:-
-    listaUsuarios("dados/usuarios.txt", ListaUsuarios),
-
     tty_clear,
+    listaUsuarios("dados/usuarios.txt", ListaUsuarios),
     writeln("Cadastro de Usuário:"),
     writeln("Insira o nome do Usuário: "),
     lerString(Nome),
     construirUsuario(Nome, Usuario),
+    existeUsuario(Nome, ListaUsuarios, Resposta),
+    cadastraUser(Usuario, Resposta).
+
+cadastraUser(Usuario, 1) :-
+    writeln("Usuario já existente!"),
+    pressToContinue.
+
+cadastraUser(Usuario, 0) :-
     salvarUsuario(Usuario),
-    writeln("Usuario cadastrado"),
+    writeln("Usuario cadastrado com sucesso!"),
     pressToContinue.
 
 
