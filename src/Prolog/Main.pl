@@ -107,9 +107,7 @@ cadastrarJogo:-
     lerNumero(Ano),
     contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnlineResponse, Ano, Jogo),
     existeJogo(NomeJogo, ListaJogos, Resposta),
-    cadastrarJogoAux(Jogo, Resposta),
-    writeln("Jogo cadastrado com sucesso"),
-    pressToContinue.
+    cadastrarJogoAux(Jogo, Resposta).
 
 cadastrarJogoAux(Jogo, 0) :-
     salvarJogo(Jogo),
