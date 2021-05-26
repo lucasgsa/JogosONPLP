@@ -26,14 +26,18 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 * Biblioteca Data.Split, caso não tenha, faça "cabal install split" para instalar.
 * Biblioteca System.IO.Strict, caso não tenha, faça "cabal install strict" para instalar.
 
+## Requisitos Prolog:
+* Digite "swipl Main.pl" para compilar o programa, e "main." para iniciar.
+* É necessário utilizar um terminal ubuntu, as funções tty são de uso exclusivo do mesmo, e portanto utilizar em windows causará erro de execução.
+
 ## Especificação / Casos de Uso:
 ### 1. Deve ser possível cadastrar usuários (Um usuário deve possuir um nickname);
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 2. Deve ser possível cadastrar jogos (Um jogo deve possuir nome, categoria(s) e requisitos mínimos para sua instalação);
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 3. Deve ser possível listar todos os jogos disponíveis;
 * - [X] Haskell
@@ -61,7 +65,7 @@ Sávio Gusmão Lafrande de Medeiros | 119111373
 
 ### 9. Um usuário deve conseguir avaliar um jogo (Comentários e notas para o jogo); 
 * - [X] Haskell
-* - [ ] Prolog
+* - [X] Prolog
 
 ### 10. Deve ser possível listar as avaliações de um usuário.
 * - [X] Haskell
