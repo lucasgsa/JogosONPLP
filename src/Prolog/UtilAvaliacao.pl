@@ -51,3 +51,18 @@ filterAvaliacoesPorUsuario(NomeUsuarioProcurado, [X|XS], AvaliacoesSaida) :-
         append([X], SaidaProx, AvaliacoesSaida);
 
         filterAvaliacoesPorUsuario(NomeUsuarioProcurado, XS, AvaliacoesSaida).
+
+formatarAvaliacao(avaliacao(Nome, Jogo, Nota, Comentario), Result):-
+    string_concat(Nome, "|", Parte1), 
+    string_concat(Parte1, Jogo, Parte2),
+    string_concat(Parte2, "|", Parte3),
+    string_concat(Parte3, Nota, Parte4),
+    string_concat(Parte4, "|", Parte5), 
+    string_concat(Parte5, Comentario, Parte6),
+    string_concat(Parte6, "\n", Result).
+
+salvarAvaliacao(NovaAvaliacao):-
+    open('dados/avaliacoes.txt',append,Stream),
+    formatarAvaliacao(NovaAvaliacao, AvaliacaoFormatada),
+    write(Stream,AvaliacaoFormatada),
+    close(Stream).
