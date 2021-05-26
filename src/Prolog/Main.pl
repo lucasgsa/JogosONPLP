@@ -74,7 +74,7 @@ cadastrarUsuario:-
     existeUsuario(Nome, ListaUsuarios, Resposta),
     cadastraUser(Usuario, Resposta).
 
-cadastraUser(Usuario, 1) :-
+cadastraUser(_, 1) :-
     writeln("Usuario já existente!"),
     pressToContinue.
 
@@ -104,12 +104,17 @@ cadastrarJogo:-
     lerNumero(Preco),
     writeln("O jogo é online? (s/n) "),
     lerString(IsOnline),
+    processarIsOnline(IsOnline, IsOnlineResponse),
     writeln("Qual o ano de lançamento"),
     lerNumero(Ano),
-    contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnline, Ano, Jogo),
+    contruirJogo(NomeJogo, Categorias, Requisitos, Plataforma, Preco, IsOnlineResponse, Ano, Jogo),
     salvarJogo(Jogo),
     writeln("Jogo cadastrado com sucesso"),
     pressToContinue.
+
+processarIsOnline("s", 1).
+processarIsOnline("n", 0).
+processarIsOnline(_, 2). 
     
 
 /*------------------ LISTAGEM DE JOGOS -----------------------*/
